@@ -2,7 +2,7 @@
  * Created by kanon on 2015/5/20.
  */
 class GameScene extends egret.Sprite {
-    //总距�?
+    //总距
     private totalMater;
     //速度
     private speed:number;
@@ -10,20 +10,20 @@ class GameScene extends egret.Sprite {
     private posIndex:number;
     private enemyPosIndex:number;
     private ground:egret.Bitmap;
-    private posAry:any[] = new Array(); // 任意类型数组
-    //存放敌人的数�?
+    private posAry:any[] = new Array(); // 浠绘剰绫诲瀷鏁扮粍
+    //敌人数组
     private enemyAry:any[] = new Array();
-    //云或者参照物的列�?
+    //云朵数组
     private cloudAry:any[] = new Array();
-    //总距离文�?
+    //显示距离文本
     private materTxt:egret.TextField;
-    //敌人计时器索�?
+    //敌人索引
     private enemyIndex:number;
-    //云朵计时器索�?
+    //云朵索引
     private cloudIndex:number;
-    //总计数器
+    //创建敌人的频率
     private enemyTotalIndex:number;
-    //总计数器
+    //创建云朵的频率
     private cloudTotalIndex:number;
     //敌人纹理数组
     private enemyTextureAry:any[] = new Array();
@@ -35,51 +35,51 @@ class GameScene extends egret.Sprite {
     private moveTween:egret.Tween;
     //浮动速度
     private floatSpeed:number = 1;
-    //出�?�间�?
+    //出现敌人的间隔
     private totalDelay;
-    //云出现的间隔
+    //出现云朵的间隔
     private cloudDelay;
-    //�?后的距离
+    //不再出现怪的距离
     private finalMater:number = 100;
-    //后层
+    //背景层
     private backLayer:egret.Sprite;
-    //前层
+    //前景层
     private frontLayer:egret.Sprite;
-    //云朵的�?�度加成
+    //云朵速率
     private cloudSpeedScale:number = 1;
     //点击次数
     private clickNum:number = 0;
-    //角色固定位置
+    //人物的y位置定位
     private rolePosY:number;
     //是否胜利
     private isWin:Boolean;
-    //������䶯��1
+    //人物掉落动画1
     private roleMc1:egret.MovieClip;
-    //������䶯��2
+    //人物掉落动画2
     private roleMc2:egret.MovieClip;
-    //������䶯��3
+    //人物掉落动画3
     private roleMc3:egret.MovieClip;
-    //������䶯��4
+    //人物掉落动画4
     private roleMc4:egret.MovieClip;
-    //������ͨ״̬
+    //人物普通状态
     private role:egret.Bitmap;
-    //�������ײ����
+    //人物的碰撞区域
     private roleSpt:egret.Bitmap;
-    //��ʾ 1-3
+    //提示 1-3
     private tips1:egret.Bitmap;
     private tips2:egret.Bitmap;
     private tips3:egret.Bitmap;
-    //�����ĺ���
+    //奖励的盒子
     private box1:egret.Bitmap;
-    //�򿪵ĺ���
+    //打开的盒子
     private box2:egret.Bitmap;
-    //�Ƿ���ʾ��ʾ
+    //是否显示提示
     private isShowTips:boolean;
-    //�Ƿ��ʼ����
+    //是否初始化过
     private isInit:boolean = false;
-    //����һ�ΰ�ť
+    //再玩一次按钮
     private againBtn:egret.Bitmap;
-    //��ɫ����
+    //角色索引
     private roleIndex:number;
     public constructor()
     {
@@ -105,7 +105,7 @@ class GameScene extends egret.Sprite {
         this.startGame();
     }
 
-    //�?始游�?
+    //开始游戏
     public startGame():void
     {
         this.posIndex = 1;
@@ -163,7 +163,7 @@ class GameScene extends egret.Sprite {
 
         this.removeAllEnemy();
         this.removeAllCloud();
-        //停止出�?�和�?
+
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
         this.removeEventListener(egret.Event.ENTER_FRAME, this.loop, this);
 
@@ -171,7 +171,7 @@ class GameScene extends egret.Sprite {
         this.addEventListener(egret.Event.ENTER_FRAME, this.loop, this);
     }
 
-    //初始化数�?
+    //初始化数据
     private initData():void
     {
         this.posIndex = 1;
@@ -318,7 +318,7 @@ class GameScene extends egret.Sprite {
         this.materTxt.text = "Egret";
         this.materTxt.textColor = 0xff0000;
 
-        //Egret没有TextFormat
+        //Egret娌℃湁TextFormat
         this.materTxt.size = 40;
         this.materTxt.fontFamily = "Arial";
         this.materTxt.lineSpacing = 3;
@@ -354,9 +354,9 @@ class GameScene extends egret.Sprite {
     private onTouchHandler(event:egret.TouchEvent):void
     {
         if (event.localX > this.roleMc1.x)
-            this.posIndex++; //�?�?
+            this.posIndex++; //向右
         else
-            this.posIndex--; //�?�?
+            this.posIndex--; //向左
         if (this.posIndex > this.posAry.length - 1)
             this.posIndex = this.posAry.length - 1;
         else if (this.posIndex < 0)
@@ -377,7 +377,7 @@ class GameScene extends egret.Sprite {
         this["roleMc" + this.roleIndex].visible = true;
     }
 
-    //下落动画
+    //开始下落动画
     private startFallMotion():void
     {
         egret.Tween.removeTweens(this.roleMc1);
@@ -394,11 +394,10 @@ class GameScene extends egret.Sprite {
         egret.Tween.removeTweens(this.roleMc2);
         egret.Tween.removeTweens(this.roleMc3);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
-        //漂浮
         this.floatSpeed = .6;
     }
 
-    //初始化敌人的纹理
+    //初始化纹理
     private initTexture():void
     {
         for (var i:number = 1; i <= 4; ++i)
@@ -431,7 +430,7 @@ class GameScene extends egret.Sprite {
         this.enemyAry.push(enemy);
     }
 
-    //创建云朵
+    //创建云
     private createCloud():void
     {
         var count:number = Math.round(Math.random() * 5) + 5;
@@ -459,7 +458,7 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //更新敌人状�??
+    //敌人循环
     private updateEnemy():void
     {
         for (var i:number = this.enemyAry.length - 1; i >= 0; --i)
@@ -488,7 +487,7 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //碰撞�?�?
+    //碰撞检测
     private checkHitTest():boolean
     {
         var gapW:number = 10;
@@ -523,7 +522,7 @@ class GameScene extends egret.Sprite {
         return false;
     }
 
-    //更新计时器索�?
+    //创建云和敌人的计数器
     private updateTimerIndex():void
     {
         if(this.isWin) return;
@@ -552,7 +551,7 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //游戏主循�?
+    //主循环
     private loop(event:egret.Event):void
     {
         this.totalMater -= this.speed;
@@ -569,20 +568,18 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //根据距离判断减少出�?�间�?
+    //判断距离
     private checkMater():void
     {
         if (this.totalMater > this.finalMater &&
             this.totalMater % 1000 == 0)
         {
             this.totalDelay -= 1;
-            //加快出�?��?�度
             this.enemyTotalIndex = 60 * this.totalDelay;
         }
 
         if (this.totalMater <= this.finalMater + 100)
         {
-            //停止出�?�和出云
             this.tips1.visible = false;
             this.tips2.visible = false;
             this.tips3.visible = false;
@@ -603,7 +600,6 @@ class GameScene extends egret.Sprite {
 
     private fallComplete():void
     {
-        //TODO 弹出胜利
         this.roleMc1.visible = false;
         this.roleMc2.visible = false;
         this.roleMc3.visible = false;
@@ -614,7 +610,7 @@ class GameScene extends egret.Sprite {
         this.roleMc4.visible = true;
         this.roleMc4.gotoAndPlay(1);
         this.roleMc4.addEventListener(egret.Event.ENTER_FRAME, this.roleMc4Loop, this);
-        //����������ɺ� ��ʾ role
+        //动画播放完成后 显示 role
     }
 
     private roleMc4Loop():void
@@ -649,7 +645,7 @@ class GameScene extends egret.Sprite {
     }
 
 
-    //删除敌人
+    //删除所有敌人
     private removeAllEnemy():void
     {
         for (var i:number = this.enemyAry.length - 1; i >= 0; --i)
@@ -660,7 +656,7 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //删除�?有云�?
+    //删除所有云
     private removeAllCloud():void
     {
         for (var i:number = this.cloudAry.length - 1; i >= 0; --i) {
@@ -680,13 +676,12 @@ class GameScene extends egret.Sprite {
         this.floatSpeed = 0;
         this.removeAllEnemy();
         this.removeAllCloud();
-        //停止出�?�和�?
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
         this.removeEventListener(egret.Event.ENTER_FRAME, this.loop, this);
         this.dispatchEvent(new egret.Event("fail"));
     }
 
-    //上下漂浮移动
+    //上下浮动
     private floatMove():void
     {
         this.roleMc1.y += this.floatSpeed;
