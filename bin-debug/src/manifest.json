@@ -1,0 +1,9 @@
+[
+	"Cloud.ts",
+	"Enemy.ts",
+	"FailPanel.ts",
+	"GameScene.ts",
+	"LoadingUI.ts",
+	"StartUI.ts",
+	"Main.ts"
+]
