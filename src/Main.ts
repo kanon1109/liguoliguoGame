@@ -43,7 +43,7 @@ class Main extends egret.DisplayObjectContainer {
 
     private onAddToStage(event: egret.Event)
     {
-        egret.Profiler.getInstance().run();
+        //egret.Profiler.getInstance().run();
 
         //设置加载进度界面
         //Config to load process interface

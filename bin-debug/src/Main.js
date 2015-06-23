@@ -32,7 +32,7 @@ var Main = (function (_super) {
     }
     var __egretProto__ = Main.prototype;
     __egretProto__.onAddToStage = function (event) {
-        egret.Profiler.getInstance().run();
+        //egret.Profiler.getInstance().run();
         //设置加载进度界面
         //Config to load process interface
         this.loadingView = new LoadingUI();

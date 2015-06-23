@@ -5,7 +5,7 @@ var Enemy = (function (_super) {
     __extends(Enemy, _super);
     function Enemy() {
         _super.call(this);
-        this.speed = 20;
+        this.speed = 35;
         this.speedScale = 1;
         this.anchorX = .5;
         this.anchorY = 0;

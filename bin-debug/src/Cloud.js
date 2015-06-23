@@ -5,7 +5,7 @@ var Cloud = (function (_super) {
     __extends(Cloud, _super);
     function Cloud() {
         _super.call(this);
-        this.speed = 25;
+        this.speed = 30;
         this.anchorX = .5;
         this.anchorY = 0;
     }

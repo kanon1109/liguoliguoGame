@@ -34,6 +34,7 @@
 		{"name":"startBtn","type":"image","url":"assets/startBtn.png"},
 		{"name":"box1","type":"image","url":"assets/box1.png"},
 		{"name":"box2","type":"image","url":"assets/box2.png"},
+		{"name":"enemyTips","type":"image","url":"assets/enemyTips.png"},
 		{"name":"finger","type":"image","url":"assets/finger.png"},
 		{"name":"fingerJson","type":"json","url":"assets/finger.json"},
 		{"name":"FallMotion1Json","type":"json","url":"assets/FallMotion1.json"},
@@ -45,6 +46,6 @@
 
 "groups":
 	[
-        {"name":"preload","keys":"bgImage, m1, m2, m3, m4, c1, c2, c3, c4, c5, c6, hitRole, role, ground, startRole, startTips, touchFlyRole, FallMotion1, FallMotion1Json, FallMotion2, FallMotion2Json, FallMotion3, FallMotion3Json, finger, fingerJson, failPanel, againBtn, closeBtn, startBtn, box1, box2, FallMotion4, FallMotion4Json, m1Json, m2Json, m3Json, m4Json"}
+        {"name":"preload","keys":"bgImage, m1, m2, m3, m4, c1, c2, c3, c4, c5, c6, hitRole, role, ground, startRole, startTips, touchFlyRole, FallMotion1, FallMotion1Json, FallMotion2, FallMotion2Json, FallMotion3, FallMotion3Json, finger, fingerJson, failPanel, againBtn, closeBtn, startBtn, box1, box2, FallMotion4, FallMotion4Json, m1Json, m2Json, m3Json, m4Json, enemyTips"}
 	]
 }

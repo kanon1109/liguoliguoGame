@@ -3,7 +3,7 @@
  */
 class Cloud extends egret.Bitmap
 {
-    public speed:number = 25;
+    public speed:number = 30;
     public constructor()
     {
         super();
