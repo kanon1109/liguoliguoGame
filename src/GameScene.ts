@@ -89,6 +89,10 @@ class GameScene extends egret.Sprite {
     private posIndexAry:any[];
     //大波敌人提示
     private enemyTips:egret.Bitmap;
+    //碰到蝙蝠
+    private hitBat:egret.Bitmap;
+    private hitCat:egret.MovieClip;
+    private hitPeg:egret.MovieClip;
     public constructor()
     {
         super();
@@ -146,6 +150,10 @@ class GameScene extends egret.Sprite {
         this.roleMc3.visible = false;
         this.roleMc4.visible = false;
         this.role.visible = false;
+
+        this.hitCat.visible = false;
+        this.hitBat.visible = false;
+        this.hitPeg.visible = false;
 
         this.floatSpeed = 0;
         this.rolePosY = 548;
@@ -282,6 +290,32 @@ class GameScene extends egret.Sprite {
         this.roleSpt.anchorY = .5;
         this.roleSpt.visible = false;
         this.addChild(this.roleSpt);
+
+        this.hitBat = new egret.Bitmap();
+        this.hitBat.texture = RES.getRes("hitBat");
+        this.hitBat.anchorX = .5;
+        this.hitBat.anchorY = .5;
+        this.hitBat.visible = false;
+        this.addChild(this.hitBat);
+
+        texture = RES.getRes("hitCat");
+        json = RES.getRes("hitCatJson");
+        mcdf = new egret.MovieClipDataFactory(json, texture);
+        this.hitCat = new egret.MovieClip(mcdf.generateMovieClipData());
+        this.hitCat.frameRate = 20;
+        this.hitCat.anchorX = .5;
+        this.hitCat.anchorY = .5;
+        this.addChild(this.hitCat);
+
+        texture = RES.getRes("hitPeg");
+        json = RES.getRes("hitPegJson");
+        mcdf = new egret.MovieClipDataFactory(json, texture);
+        this.hitPeg = new egret.MovieClip(mcdf.generateMovieClipData());
+        this.hitPeg.frameRate = 20;
+        this.hitPeg.anchorX = .5;
+        this.hitPeg.anchorY = .5;
+        this.addChild(this.hitPeg);
+
     }
 
     private createTips():void
@@ -295,6 +329,7 @@ class GameScene extends egret.Sprite {
         this.addChild(this.tips1);
         this.tips1.x = this.posAry[0];
         this.tips1.y = this.stage.stageHeight - this.tips1.height / 2 - 30;
+
 
         TweenMax.to(this.tips1, .3, {y:this.tips1.y + 15, repeat:-1, yoyo:true});
 
@@ -371,6 +406,7 @@ class GameScene extends egret.Sprite {
 
     private onTouchHandler(event:egret.TouchEvent):void
     {
+        if(this.isWin) return;
         if (event.localX > this.roleMc1.x)
             this.posIndex++; //鍚戝彸
         else
@@ -418,12 +454,12 @@ class GameScene extends egret.Sprite {
     //鍒濆鍖栫汗鐞?
     private initTexture():void
     {
-        for (var i:number = 1; i <= 4; ++i)
+        for (var i:number = 1; i <= 3; ++i)
         {
             var texture:egret.Texture = RES.getRes("m" + i);
             this.enemyTextureAry.push(texture);
         }
-        for (var i:number = 1; i <= 11; ++i)
+        for (var i:number = 1; i <= 3; ++i)
         {
             var texture:egret.Texture = RES.getRes("c" + i);
             this.cloudTextureAry.push(texture);
@@ -431,13 +467,11 @@ class GameScene extends egret.Sprite {
     }
 
     //鍒涘缓鏁屼汉
-    private createEnemy(posIndex:number):void
+    private createEnemy(posIndex:number):Enemy
     {
         var enemy:Enemy = new Enemy();
-        var type:number = Math.round(Math.random() * 3) + 1;
+        var type:number = Math.round(Math.random() * 2) + 1;
         enemy.create(type);
-
-        //enemy.texture = this.enemyTextureAry[type - 1];
 
         enemy.anchorX = .5;
         enemy.anchorY = .5;
@@ -446,6 +480,8 @@ class GameScene extends egret.Sprite {
 
         this.addChild(enemy);
         this.enemyAry.push(enemy);
+
+        return enemy;
     }
 
     //鍒涘缓浜?
@@ -454,7 +490,7 @@ class GameScene extends egret.Sprite {
         var count:number = Math.round(Math.random() * 5) + 5;
         for (var i:number = 0; i < count; ++i) {
             var cloud:Cloud = new Cloud();
-            var type:number = Math.round(Math.random() * 5) + 1;
+            var type:number = Math.round(Math.random() * 2) + 1;
             cloud.texture = this.cloudTextureAry[type - 1];
             cloud.x = Math.random() * this.stage.stageWidth + 1;
             cloud.y = this.stage.stageHeight + Math.random() * 40;
@@ -569,6 +605,7 @@ class GameScene extends egret.Sprite {
             for(var i:number = 1; i <= count; ++i)
             {
                 var index:number = this.posIndexAry[i - 1];
+                console.log("tips" + index);
                 this["tips" + index].visible = true;
             }
 
@@ -583,7 +620,8 @@ class GameScene extends egret.Sprite {
             {
                 var index:number = this.posIndexAry[i - 1];
                 this["tips" + index].visible = false;
-                this.createEnemy(index - 1);
+                var enemy:Enemy = this.createEnemy(index - 1);
+                if(count > 1) enemy.y = this.stage.stageHeight + Math.round(Math.random() * 400);
             }
             this.enemyIndex = 0;
             this.isShowTips = false;
@@ -644,6 +682,11 @@ class GameScene extends egret.Sprite {
             this.tips2.visible = false;
             this.tips3.visible = false;
             this.isWin = true;
+
+            egret.Tween.get(this.roleMc1).to({x: this.posAry[1]}, 200);
+            egret.Tween.get(this.roleMc2).to({x: this.posAry[1]}, 200);
+            egret.Tween.get(this.roleMc3).to({x: this.posAry[1]}, 200);
+
         }
 
         if (this.curMater <= 0)

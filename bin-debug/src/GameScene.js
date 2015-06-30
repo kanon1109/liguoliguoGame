@@ -70,6 +70,9 @@ var GameScene = (function (_super) {
         this.roleMc3.visible = false;
         this.roleMc4.visible = false;
         this.role.visible = false;
+        this.hitCat.visible = false;
+        this.hitBat.visible = false;
+        this.hitPeg.visible = false;
         this.floatSpeed = 0;
         this.rolePosY = 548;
         this.roleSpt.x = this.posAry[this.posIndex];
@@ -175,6 +178,28 @@ var GameScene = (function (_super) {
         this.roleSpt.anchorY = .5;
         this.roleSpt.visible = false;
         this.addChild(this.roleSpt);
+        this.hitBat = new egret.Bitmap();
+        this.hitBat.texture = RES.getRes("hitBat");
+        this.hitBat.anchorX = .5;
+        this.hitBat.anchorY = .5;
+        this.hitBat.visible = false;
+        this.addChild(this.hitBat);
+        texture = RES.getRes("hitCat");
+        json = RES.getRes("hitCatJson");
+        mcdf = new egret.MovieClipDataFactory(json, texture);
+        this.hitCat = new egret.MovieClip(mcdf.generateMovieClipData());
+        this.hitCat.frameRate = 20;
+        this.hitCat.anchorX = .5;
+        this.hitCat.anchorY = .5;
+        this.addChild(this.hitCat);
+        texture = RES.getRes("hitPeg");
+        json = RES.getRes("hitPegJson");
+        mcdf = new egret.MovieClipDataFactory(json, texture);
+        this.hitPeg = new egret.MovieClip(mcdf.generateMovieClipData());
+        this.hitPeg.frameRate = 20;
+        this.hitPeg.anchorX = .5;
+        this.hitPeg.anchorY = .5;
+        this.addChild(this.hitPeg);
     };
     __egretProto__.createTips = function () {
         var texture = RES.getRes("startTips");
@@ -243,6 +268,8 @@ var GameScene = (function (_super) {
         this.addChild(this.ground);
     };
     __egretProto__.onTouchHandler = function (event) {
+        if (this.isWin)
+            return;
         if (event.localX > this.roleMc1.x)
             this.posIndex++; //向右
         else
@@ -283,11 +310,11 @@ var GameScene = (function (_super) {
     };
     //初始化纹��?
     __egretProto__.initTexture = function () {
-        for (var i = 1; i <= 4; ++i) {
+        for (var i = 1; i <= 3; ++i) {
             var texture = RES.getRes("m" + i);
             this.enemyTextureAry.push(texture);
         }
-        for (var i = 1; i <= 11; ++i) {
+        for (var i = 1; i <= 3; ++i) {
             var texture = RES.getRes("c" + i);
             this.cloudTextureAry.push(texture);
         }
@@ -295,22 +322,22 @@ var GameScene = (function (_super) {
     //创建敌人
     __egretProto__.createEnemy = function (posIndex) {
         var enemy = new Enemy();
-        var type = Math.round(Math.random() * 3) + 1;
+        var type = Math.round(Math.random() * 2) + 1;
         enemy.create(type);
-        //enemy.texture = this.enemyTextureAry[type - 1];
         enemy.anchorX = .5;
         enemy.anchorY = .5;
         enemy.x = this.posAry[posIndex];
         enemy.y = this.stage.stageHeight;
         this.addChild(enemy);
         this.enemyAry.push(enemy);
+        return enemy;
     };
     //创建��?
     __egretProto__.createCloud = function () {
         var count = Math.round(Math.random() * 5) + 5;
         for (var i = 0; i < count; ++i) {
             var cloud = new Cloud();
-            var type = Math.round(Math.random() * 5) + 1;
+            var type = Math.round(Math.random() * 2) + 1;
             cloud.texture = this.cloudTextureAry[type - 1];
             cloud.x = Math.random() * this.stage.stageWidth + 1;
             cloud.y = this.stage.stageHeight + Math.random() * 40;
@@ -396,6 +423,7 @@ var GameScene = (function (_super) {
             var count = this.posIndexAry.length;
             for (var i = 1; i <= count; ++i) {
                 var index = this.posIndexAry[i - 1];
+                console.log("tips" + index);
                 this["tips" + index].visible = true;
             }
             this.isShowTips = true;
@@ -406,7 +434,9 @@ var GameScene = (function (_super) {
             for (var i = 1; i <= count; ++i) {
                 var index = this.posIndexAry[i - 1];
                 this["tips" + index].visible = false;
-                this.createEnemy(index - 1);
+                var enemy = this.createEnemy(index - 1);
+                if (count > 1)
+                    enemy.y = this.stage.stageHeight + Math.round(Math.random() * 400);
             }
             this.enemyIndex = 0;
             this.isShowTips = false;
@@ -453,6 +483,9 @@ var GameScene = (function (_super) {
             this.tips2.visible = false;
             this.tips3.visible = false;
             this.isWin = true;
+            egret.Tween.get(this.roleMc1).to({ x: this.posAry[1] }, 200);
+            egret.Tween.get(this.roleMc2).to({ x: this.posAry[1] }, 200);
+            egret.Tween.get(this.roleMc3).to({ x: this.posAry[1] }, 200);
         }
         if (this.curMater <= 0) {
             this.floatSpeed = 0;
