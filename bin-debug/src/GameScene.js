@@ -120,7 +120,7 @@ var GameScene = (function (_super) {
     //初始化数�?
     __egretProto__.initData = function () {
         this.posIndex = 1;
-        this.posAry = [100, 320, 530];
+        this.posAry = [130, 320, 530];
     };
     __egretProto__.createBg = function () {
         var bg = new egret.Bitmap();

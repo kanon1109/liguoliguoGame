@@ -134,7 +134,7 @@ class Main extends egret.DisplayObjectContainer {
     {
         if(!this.failPanel) this.failPanel = new FailPanel();
         this.failPanel.x = this.stage.stageWidth + this.failPanel.width;
-        this.failPanel.y = this.stage.stageHeight / 2;
+        this.failPanel.y = this.stage.stageHeight / 2 - 180;
 
         this.failPanel.addEventListener("playAgain", this.playAgainHandler, this);
         this.failPanel.addEventListener("back", this.backHandler, this);

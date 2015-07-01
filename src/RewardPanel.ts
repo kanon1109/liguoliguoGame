@@ -25,13 +25,13 @@ class RewardPanel extends egret.Sprite
         this.bg = new egret.Bitmap();
         this.bg.anchorX = .5;
         this.bg.anchorY = .5;
-        this.bg.texture = RES.getRes("failPanel");
+        this.bg.texture = RES.getRes("rewardPanel");
         this.addChild(this.bg);
 
         this.againBtn = new egret.Bitmap();
         this.againBtn.texture = RES.getRes("againBtn");
-        this.againBtn.x = 126;
-        this.againBtn.y = 130;
+        this.againBtn.x = 135;
+        this.againBtn.y = 300;
         this.againBtn.anchorX = .5;
         this.againBtn.anchorY = .5;
         this.againBtn.touchEnabled = true;
@@ -41,7 +41,7 @@ class RewardPanel extends egret.Sprite
 
         this.backBtn = new egret.Bitmap();
         this.backBtn.texture = RES.getRes("closeBtn");
-        this.backBtn.x = -126;
+        this.backBtn.x = -130;
         this.backBtn.y = this.againBtn.y;
         this.backBtn.anchorX = .5;
         this.backBtn.anchorY = .5;

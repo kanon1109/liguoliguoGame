@@ -21,12 +21,12 @@ var FailPanel = (function (_super) {
         this.bg = new egret.Bitmap();
         this.bg.anchorX = .5;
         this.bg.anchorY = .5;
-        this.bg.texture = RES.getRes("failPanel");
+        this.bg.texture = RES.getRes("rewardPanel");
         this.addChild(this.bg);
         this.againBtn = new egret.Bitmap();
         this.againBtn.texture = RES.getRes("againBtn");
-        this.againBtn.x = 126;
-        this.againBtn.y = 130;
+        this.againBtn.x = 135;
+        this.againBtn.y = 300;
         this.againBtn.anchorX = .5;
         this.againBtn.anchorY = .5;
         this.againBtn.touchEnabled = true;
@@ -35,7 +35,7 @@ var FailPanel = (function (_super) {
         this.againBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBeginAgainBtnHandler, this);
         this.backBtn = new egret.Bitmap();
         this.backBtn.texture = RES.getRes("closeBtn");
-        this.backBtn.x = -126;
+        this.backBtn.x = -130;
         this.backBtn.y = this.againBtn.y;
         this.backBtn.anchorX = .5;
         this.backBtn.anchorY = .5;
@@ -43,7 +43,20 @@ var FailPanel = (function (_super) {
         this.addChild(this.backBtn);
         this.backBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEndBackBtnHandler, this);
         this.backBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBeginBackBtnHandler, this);
+        this.materWord = new Word();
+        this.materWord.create(0, "g", 1);
+        this.materWord.x = this.stage.stageWidth - this.materWord.width;
+        this.addChild(this.materWord);
+        this.materWord.anchorX = .5;
+        this.materWord.anchorY = .5;
+        this.materWord.x = this.bg.x;
+        this.materWord.y = this.bg.y;
         this.isInit = true;
+    };
+    //�������յ���
+    __egretProto__.setFinalMeter = function (mater) {
+        if (this.materWord)
+            this.materWord.create(mater, "g", 1);
     };
     __egretProto__.onTouchEndAgainBtnHandler = function (event) {
         this.againBtn.scaleX = 1;

@@ -202,7 +202,6 @@ class GameScene extends egret.Sprite {
         this.roleSpt.x = this.posAry[this.posIndex];
         this.roleSpt.y = this.rolePosY;
 
-
         this.roleMc1.play(-1);
         this.roleMc2.play(-1);
         this.roleMc3.play(-1);
@@ -234,7 +233,7 @@ class GameScene extends egret.Sprite {
     private initData():void
     {
         this.posIndex = 1;
-        this.posAry = [100, 320, 530];
+        this.posAry = [130, 320, 530];
     }
 
     private createBg()
