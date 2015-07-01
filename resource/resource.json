@@ -40,6 +40,8 @@
 		{"name":"hitCat","type":"image","url":"assets/hitCat.png"},
 		{"name":"hitCatJson","type":"json","url":"assets/hitCat.json"},
 		{"name":"hitPeg","type":"image","url":"assets/hitPeg.png"},
+		{"name":"catEffect","type":"image","url":"assets/catEffect.png"},
+		{"name":"catEffectJson","type":"json","url":"assets/catEffect.json"},
 		{"name":"hitPegJson","type":"json","url":"assets/hitPeg.json"},
 		
 		{"name":"fingerJson","type":"json","url":"assets/finger.json"},
@@ -48,11 +50,34 @@
 		{"name":"FallMotion2Json","type":"json","url":"assets/FallMotion2.json"},
 		{"name":"FallMotion3Json","type":"json","url":"assets/FallMotion3.json"},
 		{"name":"FallMotion4Json","type":"json","url":"assets/FallMotion4.json"},
-		{"name":"standMotionJson","type":"json","url":"assets/standMotion.json"}
+		{"name":"standMotionJson","type":"json","url":"assets/standMotion.json"},
+		
+		{"name":"z0","type":"image","url":"assets/z0.png"},
+		{"name":"z1","type":"image","url":"assets/z1.png"},
+		{"name":"z2","type":"image","url":"assets/z2.png"},
+		{"name":"z3","type":"image","url":"assets/z3.png"},
+		{"name":"z4","type":"image","url":"assets/z4.png"},
+		{"name":"z5","type":"image","url":"assets/z5.png"},
+		{"name":"z6","type":"image","url":"assets/z6.png"},
+		{"name":"z7","type":"image","url":"assets/z7.png"},
+		{"name":"z8","type":"image","url":"assets/z8.png"},
+		{"name":"z9","type":"image","url":"assets/z9.png"},
+		{"name":"zm","type":"image","url":"assets/zm.png"},
+		
+		{"name":"g0","type":"image","url":"assets/g0.png"},
+		{"name":"g1","type":"image","url":"assets/g1.png"},
+		{"name":"g2","type":"image","url":"assets/g2.png"},
+		{"name":"g3","type":"image","url":"assets/g3.png"},
+		{"name":"g4","type":"image","url":"assets/g4.png"},
+		{"name":"g5","type":"image","url":"assets/g5.png"},
+		{"name":"g6","type":"image","url":"assets/g6.png"},
+		{"name":"g7","type":"image","url":"assets/g7.png"},
+		{"name":"g8","type":"image","url":"assets/g8.png"},
+		{"name":"g9","type":"image","url":"assets/g9.png"}
 	],
 
 "groups":
 	[
-        {"name":"preload","keys":"bgImage, m1, m2, m3, c1, c2, c3, hitRole, role, ground, startTips, touchFlyRole, FallMotion1, FallMotion1Json, FallMotion2, FallMotion2Json, FallMotion3, FallMotion3Json, finger, fingerJson, failPanel, againBtn, closeBtn, startBtn, box1, box2, FallMotion4, FallMotion4Json, m1Json, m2Json, m3Json, enemyTips, standMotionJson, standMotion, hitBat, startBg, hitCat, hitCatJson, hitPeg, hitPegJson"}
+        {"name":"preload","keys":"bgImage, m1, m2, m3, c1, c2, c3, hitRole, role, ground, startTips, touchFlyRole, FallMotion1, FallMotion1Json, FallMotion2, FallMotion2Json, FallMotion3, FallMotion3Json, finger, fingerJson, failPanel, againBtn, closeBtn, startBtn, box1, box2, FallMotion4, FallMotion4Json, m1Json, m2Json, m3Json, enemyTips, standMotionJson, standMotion, hitBat, startBg, hitCat, hitCatJson, hitPeg, hitPegJson, catEffect, catEffectJson, z0, z1, z2,z3,z4,z5,z6,z7,z8,z9,zm,g0,g1,g2,g3,g4,g5,g6,g7,g8,g9"}
 	]
 }
