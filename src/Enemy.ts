@@ -3,7 +3,7 @@
  */
 class Enemy extends egret.Sprite
 {
-    public speed:number = 20;
+    public speed:number = 35;
     public speedScale:number = 1;
     private ani:egret.MovieClip;
     public constructor()
