@@ -120,6 +120,7 @@ class Main extends egret.DisplayObjectContainer {
         if(!this.gameScene) this.gameScene = new GameScene();
         this.gameScene.addEventListener("fail", this.failHandler, this);
         this.gameScene.addEventListener("playAgain", this.playAgainHandler, this);
+        this.gameScene.addEventListener("back", this.backHandler, this);
         this.addChild(this.gameScene);
     }
 
@@ -139,7 +140,7 @@ class Main extends egret.DisplayObjectContainer {
         this.failPanel.addEventListener("playAgain", this.playAgainHandler, this);
         this.failPanel.addEventListener("back", this.backHandler, this);
         this.addChild(this.failPanel);
-
+        this.failPanel.setFinalMeter(this.gameScene.curMater);
         TweenMax.to(this.failPanel, .3, {x:this.stage.stageWidth / 2});
     }
 
@@ -156,9 +157,14 @@ class Main extends egret.DisplayObjectContainer {
 
     private backHandler(event:egret.Event):void
     {
-        TweenMax.killTweensOf(this.failPanel);
-        this.failPanel.parent.removeChild(this.failPanel);
-        this.gameScene.parent.removeChild(this.gameScene);
+        if(this.failPanel && this.failPanel.parent)
+        {
+            TweenMax.killTweensOf(this.failPanel);
+            this.failPanel.parent.removeChild(this.failPanel);
+        }
+        if(this.gameScene &&
+           this.gameScene.parent)
+           this.gameScene.parent.removeChild(this.gameScene);
         this.createGameScene();
     }
 }

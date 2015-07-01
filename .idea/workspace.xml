@@ -24,8 +24,8 @@
       <file leaf-file-name="Main.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.1509433">
-              <caret line="120" column="45" selection-start-line="120" selection-start-column="41" selection-end-line="120" selection-end-column="45" />
+            <state vertical-scroll-proportion="8.96">
+              <caret line="107" column="7" selection-start-line="107" selection-start-column="7" selection-end-line="107" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -34,7 +34,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/launcher/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
+            <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -54,8 +54,8 @@
       <file leaf-file-name="GameScene.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameScene.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33227345">
-              <caret line="921" column="12" selection-start-line="921" selection-start-column="12" selection-end-line="921" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.33333334">
+              <caret line="565" column="5" selection-start-line="565" selection-start-column="5" selection-end-line="565" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc;n#GameScene#0" expanded="false" />
               </folding>
@@ -63,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RewardPanel.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RewardPanel.ts">
+      <file leaf-file-name="core.d.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libs/core/core.d.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.56">
-              <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+            <state vertical-scroll-proportion="-6.32">
+              <caret line="3447" column="8" selection-start-line="3447" selection-start-column="8" selection-end-line="3447" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -76,8 +76,8 @@
       <file leaf-file-name="FailPanel.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FailPanel.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.24">
-              <caret line="69" column="43" selection-start-line="69" selection-start-column="43" selection-end-line="69" selection-end-column="43" />
+            <state vertical-scroll-proportion="-5.075472">
+              <caret line="101" column="52" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="52" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -85,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Word.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Word.ts">
+      <file leaf-file-name="RewardPanel.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RewardPanel.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+            <state vertical-scroll-proportion="-11.88">
+              <caret line="72" column="48" selection-start-line="72" selection-start-column="44" selection-end-line="72" selection-end-column="48" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -120,11 +120,9 @@
       <file leaf-file-name="StartUI.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/StartUI.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="51" column="43" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="43" />
-              <folding>
-                <marker date="1435712907914" expanded="true" signature="0:6" placeholder="/** ...*/" />
-              </folding>
+            <state vertical-scroll-proportion="-4.56">
+              <caret line="57" column="44" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -148,14 +146,14 @@
         <option value="$PROJECT_DIR$/bin-debug/lib/egret_file_list.js" />
         <option value="$PROJECT_DIR$/resource/resource.json" />
         <option value="$PROJECT_DIR$/src/Cloud.ts" />
-        <option value="$PROJECT_DIR$/src/StartUI.ts" />
         <option value="$PROJECT_DIR$/src/Enemy.ts" />
         <option value="$PROJECT_DIR$/libs/core/core.d.ts" />
         <option value="$PROJECT_DIR$/src/Word.ts" />
-        <option value="$PROJECT_DIR$/src/Main.ts" />
-        <option value="$PROJECT_DIR$/src/RewardPanel.ts" />
-        <option value="$PROJECT_DIR$/src/GameScene.ts" />
         <option value="$PROJECT_DIR$/src/FailPanel.ts" />
+        <option value="$PROJECT_DIR$/src/StartUI.ts" />
+        <option value="$PROJECT_DIR$/src/RewardPanel.ts" />
+        <option value="$PROJECT_DIR$/src/Main.ts" />
+        <option value="$PROJECT_DIR$/src/GameScene.ts" />
       </list>
     </option>
   </component>
@@ -167,10 +165,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-4" />
-    <option name="y" value="-4" />
-    <option name="width" value="1288" />
-    <option name="height" value="988" />
+    <option name="x" value="416" />
+    <option name="y" value="9" />
+    <option name="width" value="1374" />
+    <option name="height" value="732" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -211,7 +209,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -275,6 +272,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -356,17 +354,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1288" height="988" extended-state="0" />
+    <frame x="416" y="9" width="1374" height="732" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19936457" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19925651" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32822758" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18505748" sideWeight="0.28038126" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16123779" sideWeight="0.28475836" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18505748" sideWeight="0.71961874" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16123779" sideWeight="0.7152416" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -394,6 +392,14 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/StartUI.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="43" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/build_engine.bat">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -704,14 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/core/core.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34222737">
-          <caret line="4104" column="10" selection-start-line="4104" selection-start-column="10" selection-end-line="4104" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LoadingUI.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -728,44 +726,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Word.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/StartUI.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="43" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="43" />
-          <folding>
-            <marker date="1435712907914" expanded="true" signature="0:6" placeholder="/** ...*/" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RewardPanel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.56">
-          <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FailPanel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.24">
-          <caret line="69" column="43" selection-start-line="69" selection-start-column="43" selection-end-line="69" selection-end-column="43" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/launcher/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -774,18 +734,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/libs/core/core.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.32">
+          <caret line="3447" column="8" selection-start-line="3447" selection-start-column="8" selection-end-line="3447" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/StartUI.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.56">
+          <caret line="57" column="44" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FailPanel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.075472">
+          <caret line="101" column="52" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="52" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RewardPanel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.88">
+          <caret line="72" column="48" selection-start-line="72" selection-start-column="44" selection-end-line="72" selection-end-column="48" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1509433">
-          <caret line="120" column="45" selection-start-line="120" selection-start-column="41" selection-end-line="120" selection-end-column="45" />
+        <state vertical-scroll-proportion="8.96">
+          <caret line="107" column="7" selection-start-line="107" selection-start-column="7" selection-end-line="107" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameScene.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33227345">
-          <caret line="921" column="12" selection-start-line="921" selection-start-column="12" selection-end-line="921" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="565" column="5" selection-start-line="565" selection-start-column="5" selection-end-line="565" selection-end-column="5" />
           <folding>
             <element signature="n#!!doc;n#GameScene#0" expanded="false" />
           </folding>

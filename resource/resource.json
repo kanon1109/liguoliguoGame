@@ -73,11 +73,12 @@
 		{"name":"g7","type":"image","url":"assets/g7.png"},
 		{"name":"g8","type":"image","url":"assets/g8.png"},
 		{"name":"g9","type":"image","url":"assets/g9.png"},
-		{"name":"rewardPanel","type":"image","url":"assets/rewardPanel.png"}
+		{"name":"rewardPanel","type":"image","url":"assets/rewardPanel.png"},
+		{"name":"short","type":"image","url":"assets/short.png"}
 	],
 
 "groups":
 	[
-        {"name":"preload","keys":"bgImage, m1, m2, m3, c1, c2, c3, hitRole, role, ground, startTips, touchFlyRole, FallMotion1, FallMotion1Json, FallMotion2, FallMotion2Json, FallMotion3, FallMotion3Json, finger, fingerJson, againBtn, closeBtn, startBtn, box1, box2, FallMotion4, FallMotion4Json, m1Json, m2Json, m3Json, enemyTips, standMotionJson, standMotion, hitBat, startBg, hitCat, hitCatJson, hitPeg, hitPegJson, catEffect, catEffectJson, z0, z1, z2,z3,z4,z5,z6,z7,z8,z9,zm,g0,g1,g2,g3,g4,g5,g6,g7,g8,g9,rewardPanel"}
+        {"name":"preload","keys":"bgImage, m1, m2, m3, c1, c2, c3, hitRole, role, ground, startTips, touchFlyRole, FallMotion1, FallMotion1Json, FallMotion2, FallMotion2Json, FallMotion3, FallMotion3Json, finger, fingerJson, againBtn, closeBtn, startBtn, box1, box2, FallMotion4, FallMotion4Json, m1Json, m2Json, m3Json, enemyTips, standMotionJson, standMotion, hitBat, startBg, hitCat, hitCatJson, hitPeg, hitPegJson, catEffect, catEffectJson, z0, z1, z2,z3,z4,z5,z6,z7,z8,z9,zm,g0,g1,g2,g3,g4,g5,g6,g7,g8,g9,rewardPanel,short"}
 	]
 }

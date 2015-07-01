@@ -43,12 +43,12 @@ var GameScene = (function (_super) {
             this.createTips();
             this.createTxt();
             this.createBox();
-            this.createUI();
+            //this.createUI();
             this.isInit = true;
         }
         this.startGame();
     };
-    //�?始游�?
+    //��??始游��??
     __egretProto__.startGame = function () {
         this.posIndex = 1;
         this.roleIndex = 1;
@@ -59,6 +59,7 @@ var GameScene = (function (_super) {
         this.totalDelay = 2;
         this.rotationDelay = 1;
         this.totalMater = 10000;
+        this.totalMater = 1000;
         this.curMater = this.totalMater;
         this.cloudDelay = 1.5;
         this.isShowTips = false;
@@ -104,11 +105,12 @@ var GameScene = (function (_super) {
         this.box1.visible = false;
         this.box2.visible = false;
         this.box1.touchEnabled = false;
+        this.rewardPanel.visible = false;
         this.tips1.visible = false;
         this.tips2.visible = false;
         this.tips3.visible = false;
         this.ground.y = this.stage.stageHeight;
-        this.againBtn.visible = false;
+        //this.againBtn.visible = false;
         this.catEffect.visible = false;
         this.removeAllEnemy();
         this.removeAllCloud();
@@ -117,7 +119,7 @@ var GameScene = (function (_super) {
         this.startFallMotion();
         this.addEventListener(egret.Event.ENTER_FRAME, this.loop, this);
     };
-    //初始化数�?
+    //初始化数��??
     __egretProto__.initData = function () {
         this.posIndex = 1;
         this.posAry = [130, 320, 530];
@@ -130,7 +132,8 @@ var GameScene = (function (_super) {
         this.backLayer = new egret.Sprite();
         this.addChild(this.backLayer);
     };
-    __egretProto__.createUI = function () {
+    /*private createUI():void
+    {
         this.againBtn = new egret.Bitmap();
         this.againBtn.texture = RES.getRes("againBtn");
         this.againBtn.x = 560;
@@ -141,16 +144,20 @@ var GameScene = (function (_super) {
         this.addChild(this.againBtn);
         this.againBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEndAgainBtnHandler, this);
         this.againBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBeginAgainBtnHandler, this);
-    };
-    __egretProto__.onTouchEndAgainBtnHandler = function (event) {
+    }
+
+    private onTouchEndAgainBtnHandler(event:egret.TouchEvent):void
+    {
         this.againBtn.scaleX = 1;
         this.againBtn.scaleY = 1;
         this.dispatchEvent(new egret.Event("playAgain"));
-    };
-    __egretProto__.onTouchBeginAgainBtnHandler = function (event) {
+    }
+
+    private onTouchBeginAgainBtnHandler(event:egret.TouchEvent):void
+    {
         this.againBtn.scaleX = .9;
         this.againBtn.scaleY = .9;
-    };
+    }*/
     __egretProto__.createRole = function () {
         var texture = RES.getRes("FallMotion1");
         var json = RES.getRes("FallMotion1Json");
@@ -279,6 +286,10 @@ var GameScene = (function (_super) {
         this.addChild(this.materWord);
     };
     __egretProto__.createBox = function () {
+        this.rewardPanel = new RewardPanel();
+        this.rewardPanel.addEventListener("playAgain", this.playAgainHandler, this);
+        this.rewardPanel.addEventListener("back", this.backHandler, this);
+        this.addChild(this.rewardPanel);
         this.box1 = new egret.Bitmap();
         var texture = RES.getRes("box1");
         this.box1.texture = texture;
@@ -293,6 +304,12 @@ var GameScene = (function (_super) {
         this.box2.anchorY = .5;
         this.addChild(this.box2);
     };
+    __egretProto__.playAgainHandler = function (event) {
+        this.startGame();
+    };
+    __egretProto__.backHandler = function (event) {
+        this.dispatchEvent(new egret.Event("back"));
+    };
     __egretProto__.createGround = function () {
         this.ground = new egret.Bitmap();
         var texture = RES.getRes("ground");
@@ -303,6 +320,8 @@ var GameScene = (function (_super) {
         if (this.isWin)
             return;
         if (this.roleStatus == GameScene.ROTATION)
+            return;
+        if (this.roleStatus == GameScene.CRAZY)
             return;
         if (this.roleStatus == GameScene.FLY)
             return;
@@ -331,7 +350,7 @@ var GameScene = (function (_super) {
 
         this["roleMc" + this.roleIndex].visible = true;*/
     };
-    //�?始下落动�?
+    //��??始下落动��??
     __egretProto__.startFallMotion = function () {
         egret.Tween.removeTweens(this.roleMc1);
         egret.Tween.removeTweens(this.roleMc2);
@@ -347,7 +366,7 @@ var GameScene = (function (_super) {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
         this.floatSpeed = 1;
     };
-    //初始化纹�?
+    //初始化纹��??
     __egretProto__.initTexture = function () {
         for (var i = 1; i <= 3; ++i) {
             var texture = RES.getRes("m" + i);
@@ -371,7 +390,7 @@ var GameScene = (function (_super) {
         this.enemyAry.push(enemy);
         return enemy;
     };
-    //创建�?
+    //创建��??
     __egretProto__.createCloud = function () {
         var count = Math.round(Math.random() * 5) + 5;
         for (var i = 0; i < count; ++i) {
@@ -417,7 +436,7 @@ var GameScene = (function (_super) {
             }
         }
     };
-    //碰撞�?�?
+    //碰撞��??��??
     __egretProto__.checkHitTest = function () {
         var gapW = 10;
         for (var i = this.enemyAry.length - 1; i >= 0; --i) {
@@ -481,7 +500,7 @@ var GameScene = (function (_super) {
             this.isShowTips = false;
         }
     };
-    //主循�?
+    //主循��??
     __egretProto__.loop = function (event) {
         this.curMater -= this.speed;
         if (this.curMater < 0)
@@ -497,7 +516,7 @@ var GameScene = (function (_super) {
         this.checkHitStatus();
         this.checkStatus();
     };
-    //判断碰撞状态
+    //判断碰撞状�??
     __egretProto__.checkHitStatus = function () {
         if (this.roleStatus != GameScene.NONE)
             return;
@@ -517,7 +536,7 @@ var GameScene = (function (_super) {
                 break;
         }
     };
-    //根据状态判断现在的动作
+    //根据状�?�判断现在的动作
     __egretProto__.checkStatus = function () {
         if (this.roleStatus == GameScene.ROTATION) {
             this.hitCat.visible = false;
@@ -557,7 +576,7 @@ var GameScene = (function (_super) {
             this.catEffect.visible = false;
             this.roleMc1.visible = false;
             this.hitPeg.visible = true;
-            egret.Tween.get(this.hitPeg).to({ y: -this.hitPeg.height }, 700).call(this.flyComplete, this);
+            egret.Tween.get(this.hitPeg).to({ y: -this.hitPeg.height }, 600).call(this.flyComplete, this);
             ;
         }
         else if (this.roleStatus == GameScene.NONE) {
@@ -590,7 +609,7 @@ var GameScene = (function (_super) {
             }
         }
         if (this.curMater <= this.totalMater / 2 && this.curMater >= this.finalMater + 100) {
-            //һ�󲨹������
+            //һ�󲨹�������?
             this.inDoubleMode = true;
             this.totalDelay = 1.5;
             this.enemyTotalIndex = 60 * this.totalDelay;
@@ -626,7 +645,7 @@ var GameScene = (function (_super) {
         this.roleMc4.visible = true;
         this.roleMc4.gotoAndPlay(1);
         this.roleMc4.addEventListener(egret.Event.ENTER_FRAME, this.roleMc4Loop, this);
-        //动画播放完成�? 显示 role
+        //动画播放完成��?? 显示 role
     };
     __egretProto__.roleMc4Loop = function () {
         if (this.roleMc4.currentFrame == this.roleMc4.totalFrames) {
@@ -638,13 +657,18 @@ var GameScene = (function (_super) {
             this.box1.y = this.role.y;
             this.box1.alpha = 0;
             this.box1.visible = true;
-            egret.Tween.get(this.box1).to({ alpha: 1, y: this.stage.stageHeight / 2 }, 1000).call(this.box1MoveComplete, this);
+            this.rewardPanel.alpha = 0;
+            this.rewardPanel.x = this.box1.x;
+            this.rewardPanel.y = this.box1.y - 70;
+            this.rewardPanel.visible = true;
+            egret.Tween.get(this.box1).to({ alpha: 1, y: this.stage.stageHeight / 2 - 130 }, 1000).call(this.box1MoveComplete, this);
+            egret.Tween.get(this.rewardPanel).to({ alpha: 1, y: this.stage.stageHeight / 2 - 200 }, 1000);
         }
     };
     __egretProto__.box1MoveComplete = function () {
         this.box1.touchEnabled = true;
         egret.Tween.removeTweens(this.box1);
-        this.againBtn.visible = true;
+        //this.againBtn.visible = true;
         this.box2.x = this.box1.x;
         this.box2.y = this.box1.y;
     };
@@ -652,7 +676,7 @@ var GameScene = (function (_super) {
         this.box1.visible = false;
         this.box2.visible = true;
     };
-    //删除�?有敌�?
+    //删除��??有敌��??
     __egretProto__.removeAllEnemy = function () {
         for (var i = this.enemyAry.length - 1; i >= 0; --i) {
             var enemy = this.enemyAry[i];
@@ -660,7 +684,7 @@ var GameScene = (function (_super) {
             this.enemyAry.splice(i, 1);
         }
     };
-    //删除�?有云
+    //删除��??有云
     __egretProto__.removeAllCloud = function () {
         for (var i = this.cloudAry.length - 1; i >= 0; --i) {
             var cloud = this.cloudAry[i];
@@ -689,7 +713,7 @@ var GameScene = (function (_super) {
         this.roleMc2.y = this.roleMc1.y;
         this.roleMc3.y = this.roleMc1.y;
     };
-    //˫���ϰ�ģʽ�� ����ϰ�λ��
+    //˫���ϰ�ģʽ�� ����ϰ�λ���?
     __egretProto__.doubleModeRandom = function (posIndex) {
         var ary = [1, 2, 3];
         var count = ary.length;
@@ -703,13 +727,13 @@ var GameScene = (function (_super) {
         tmpAry.splice(index, 1);
         return [posIndex, tmpAry[0]];
     };
-    //普通状态
+    //普�?�状��?
     GameScene.NONE = "none";
-    //旋转状态
+    //旋转状�??
     GameScene.ROTATION = "rotation";
-    //被猫爪状态
+    //被猫爪状��?
     GameScene.CRAZY = "crazy";
-    //飞出状态
+    //飞出状�??
     GameScene.FLY = "fly";
     return GameScene;
 })(egret.Sprite);

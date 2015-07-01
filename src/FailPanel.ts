@@ -15,6 +15,7 @@ class FailPanel extends egret.Sprite
     private isInit:boolean = false;
     //Ã×ÎÄ×Ö
     private materWord:Word;
+    private short:egret.Bitmap;
     public constructor()
     {
         super();
@@ -29,6 +30,14 @@ class FailPanel extends egret.Sprite
         this.bg.anchorY = .5;
         this.bg.texture = RES.getRes("rewardPanel");
         this.addChild(this.bg);
+
+        this.short = new egret.Bitmap();
+        this.short.anchorX = .5;
+        this.short.anchorY = .5;
+        this.short.x = this.bg.x;
+        this.short.y = this.bg.y - 15;
+        this.short.texture = RES.getRes("short");
+        this.addChild(this.short);
 
         this.againBtn = new egret.Bitmap();
         this.againBtn.texture = RES.getRes("againBtn");
@@ -61,7 +70,7 @@ class FailPanel extends egret.Sprite
         this.materWord.anchorY = .5;
 
         this.materWord.x = this.bg.x;
-        this.materWord.y = this.bg.y + 100;
+        this.materWord.y = this.bg.y + 120;
 
         this.isInit = true;
     }

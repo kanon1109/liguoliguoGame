@@ -104,6 +104,7 @@ var Main = (function (_super) {
             this.gameScene = new GameScene();
         this.gameScene.addEventListener("fail", this.failHandler, this);
         this.gameScene.addEventListener("playAgain", this.playAgainHandler, this);
+        this.gameScene.addEventListener("back", this.backHandler, this);
         this.addChild(this.gameScene);
     };
     __egretProto__.failHandler = function (event) {
@@ -119,6 +120,7 @@ var Main = (function (_super) {
         this.failPanel.addEventListener("playAgain", this.playAgainHandler, this);
         this.failPanel.addEventListener("back", this.backHandler, this);
         this.addChild(this.failPanel);
+        this.failPanel.setFinalMeter(this.gameScene.curMater);
         TweenMax.to(this.failPanel, .3, { x: this.stage.stageWidth / 2 });
     };
     __egretProto__.playAgainHandler = function (event) {
@@ -130,9 +132,12 @@ var Main = (function (_super) {
         this.gameScene.addEventListener("fail", this.failHandler, this);
     };
     __egretProto__.backHandler = function (event) {
-        TweenMax.killTweensOf(this.failPanel);
-        this.failPanel.parent.removeChild(this.failPanel);
-        this.gameScene.parent.removeChild(this.gameScene);
+        if (this.failPanel && this.failPanel.parent) {
+            TweenMax.killTweensOf(this.failPanel);
+            this.failPanel.parent.removeChild(this.failPanel);
+        }
+        if (this.gameScene && this.gameScene.parent)
+            this.gameScene.parent.removeChild(this.gameScene);
         this.createGameScene();
     };
     return Main;

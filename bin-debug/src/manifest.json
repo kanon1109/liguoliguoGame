@@ -1,6 +1,7 @@
 [
 	"Cloud.ts",
 	"Enemy.ts",
+	"RewardPanel.ts",
 	"Word.ts",
 	"FailPanel.ts",
 	"GameScene.ts",

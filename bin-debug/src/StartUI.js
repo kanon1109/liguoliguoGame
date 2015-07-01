@@ -44,7 +44,7 @@ var StartUI = (function (_super) {
         this.startBtn.anchorX = .5;
         this.startBtn.anchorY = .5;
         this.startBtn.x = this.stage.stageWidth / 2;
-        this.startBtn.y = this.roleMc.y + 200;
+        this.startBtn.y = this.roleMc.y + 220;
         this.addChild(this.startBtn);
         this.flyRole = new egret.Bitmap();
         this.flyRole.texture = RES.getRes("touchFlyRole");
