@@ -10,20 +10,20 @@ class GameScene extends egret.Sprite {
     //位置索引
     private posIndex:number;
     private ground:egret.Bitmap;
-    private posAry:any[] = new Array(); // 浠绘剰绫诲�?�鏁扮粍
+    private posAry:any[] = new Array(); // 浠绘剰绫诲�?�鏁扮粍
     //敌人数组
     private enemyAry:any[] = new Array();
     //云朵数组
     private cloudAry:any[] = new Array();
     //显示距离文本
-    private materTxt:egret.TextField;
+    //private materTxt:egret.TextField;
     //敌人索引
     private enemyIndex:number;
     //云朵索引
     private cloudIndex:number;
-    //创建敌人的频�?
+    //创建敌人的频�?
     private enemyTotalIndex:number;
-    //创建云朵的频�?
+    //创建云朵的频�?
     private cloudTotalIndex:number;
     //敌人纹理数组
     private enemyTextureAry:any[] = new Array();
@@ -35,15 +35,15 @@ class GameScene extends egret.Sprite {
     private moveTween:egret.Tween;
     //浮动速度
     private floatSpeed:number = 1;
-    //出现敌人的间�?
+    //出现敌人的间�?
     private totalDelay;
-    //出现云朵的间�?
+    //出现云朵的间�?
     private cloudDelay;
     //不再出现怪的距离
     private finalMater:number = 500;
-    //背景�?
+    //背景�?
     private backLayer:egret.Sprite;
-    //前景�?
+    //前景�?
     private frontLayer:egret.Sprite;
     //云朵速率
     private cloudSpeedScale:number = 1;
@@ -61,38 +61,62 @@ class GameScene extends egret.Sprite {
     private roleMc3:egret.MovieClip;
     //人物掉落动画4
     private roleMc4:egret.MovieClip;
-    //人物普�?�状�?
+    //人物普�?�状�?
     private role:egret.Bitmap;
-    //人物的碰撞区�?
+    //人物的碰撞区�?
     private roleSpt:egret.Bitmap;
     //提示 1-3
     private tips1:egret.Bitmap;
     private tips2:egret.Bitmap;
     private tips3:egret.Bitmap;
-    //奖励的盒�?
+    //奖励的盒�?
     private box1:egret.Bitmap;
-    //打开的盒�?
+    //打开的盒�?
     private box2:egret.Bitmap;
     //是否显示提示
     private isShowTips:boolean;
     //是否初始化过
     private isInit:boolean = false;
-    //再玩�?次按�?
+    //再玩�?次按�?
     private againBtn:egret.Bitmap;
     //角色索引
     private roleIndex:number;
-    //����˫��ģʽ
+    //����˫��ģʽ
     private inDoubleMode:boolean;
-    //tips�Ƿ������
+    //tips�Ƿ������
     private isEnemyTipsShow:boolean;
-    //λ����������
+    //λ����������
     private posIndexAry:any[];
-    //�󲨵�����ʾ
+    //�󲨵�����ʾ
     private enemyTips:egret.Bitmap;
-    //��������
+    //��������
     private hitBat:egret.Bitmap;
     private hitCat:egret.MovieClip;
     private hitPeg:egret.MovieClip;
+    //角色状态
+    private roleStatus:string;
+    //普通状态
+    private static NONE:string = "none";
+    //旋转状态
+    private static ROTATION:string = "rotation";
+    //被猫爪状态
+    private static CRAZY:string = "crazy";
+    //飞出状态
+    private static FLY:string = "fly";
+    //旋转速度
+    private rotationSpeed:number = 10;
+    //旋转持续时间
+    private rotationDelay:number = 1;
+    private rotationTotalIndex:number;
+    private rotationIndex:number;
+    //猫爪效果
+    private catEffect:egret.MovieClip;
+    //猫爪持续时间
+    private catEffectDelay:number = 1;
+    private catEffectTotalIndex:number;
+    private catEffectIndex:number;
+    //米文字
+    private materWord:Word;
     public constructor()
     {
         super();
@@ -117,25 +141,36 @@ class GameScene extends egret.Sprite {
         this.startGame();
     }
 
-    //�?始游�?
+    //�?始游�?
     public startGame():void
     {
         this.posIndex = 1;
         this.roleIndex = 1;
         this.enemyIndex = 0;
         this.cloudIndex = 0;
+        this.rotationIndex = 0;
+        this.catEffectIndex = 0;
         this.totalDelay = 2;
+        this.rotationDelay = 1;
         this.totalMater = 10000;
         this.curMater = this.totalMater;
         this.cloudDelay = 1.5;
         this.isShowTips = false;
-
-        this.enemyTotalIndex = 60 * this.totalDelay;
-        this.cloudTotalIndex = 60 * this.cloudDelay;
-
+        this.floatSpeed = 0;
+        this.rolePosY = 548;
+        this.roleStatus = GameScene.NONE;
+        this.inDoubleMode = false;
+        this.isEnemyTipsShow = false;
+        this.isWin = false;
         this.cloudSpeedScale = 1;
         this.clickNum = 0;
         this.speed = 4;
+
+        this.enemyTotalIndex = 60 * this.totalDelay;
+        this.cloudTotalIndex = 60 * this.cloudDelay;
+        this.rotationTotalIndex = 60 * this.rotationDelay;
+        this.catEffectTotalIndex = 60 * this.catEffectDelay;
+
         this.roleMc1.x = this.posAry[this.posIndex];
         this.roleMc1.y = -this.roleMc1.height;
         this.roleMc1.play(-1);
@@ -144,6 +179,15 @@ class GameScene extends egret.Sprite {
         this.roleMc2.y = this.roleMc1.y;
         this.roleMc3.x = this.roleMc1.x;
         this.roleMc3.y = this.roleMc1.y;
+
+        this.hitCat.x = this.roleMc1.x;
+        this.hitCat.y = this.rolePosY;
+
+        this.hitBat.x = this.roleMc1.x;
+        this.hitBat.y = this.rolePosY;
+
+        this.hitPeg.x = this.roleMc1.x;
+        this.hitPeg.y = this.rolePosY;
 
         this.roleMc1.visible = true;
         this.roleMc2.visible = false;
@@ -155,11 +199,8 @@ class GameScene extends egret.Sprite {
         this.hitBat.visible = false;
         this.hitPeg.visible = false;
 
-        this.floatSpeed = 0;
-        this.rolePosY = 548;
         this.roleSpt.x = this.posAry[this.posIndex];
         this.roleSpt.y = this.rolePosY;
-        this.isWin = false;
 
         this.roleMc1.play(-1);
         this.roleMc2.play(-1);
@@ -174,11 +215,9 @@ class GameScene extends egret.Sprite {
         this.tips3.visible = false;
 
         this.ground.y = this.stage.stageHeight;
-
         this.againBtn.visible = false;
 
-        this.inDoubleMode = false;
-        this.isEnemyTipsShow = false;
+        this.catEffect.visible = false;
 
         this.removeAllEnemy();
         this.removeAllCloud();
@@ -190,11 +229,11 @@ class GameScene extends egret.Sprite {
         this.addEventListener(egret.Event.ENTER_FRAME, this.loop, this);
     }
 
-    //初始化数�?
+    //初始化数�?
     private initData():void
     {
         this.posIndex = 1;
-        this.posAry = [100, 320, 530];
+        this.posAry = [130, 320, 530];
     }
 
     private createBg()
@@ -295,7 +334,6 @@ class GameScene extends egret.Sprite {
         this.hitBat.texture = RES.getRes("hitBat");
         this.hitBat.anchorX = .5;
         this.hitBat.anchorY = .5;
-        this.hitBat.visible = false;
         this.addChild(this.hitBat);
 
         texture = RES.getRes("hitCat");
@@ -316,6 +354,14 @@ class GameScene extends egret.Sprite {
         this.hitPeg.anchorY = .5;
         this.addChild(this.hitPeg);
 
+        texture = RES.getRes("catEffect");
+        json = RES.getRes("catEffectJson");
+        mcdf = new egret.MovieClipDataFactory(json, texture);
+        this.catEffect = new egret.MovieClip(mcdf.generateMovieClipData());
+        this.catEffect.frameRate = 20;
+        this.catEffect.anchorX = .5;
+        this.catEffect.anchorY = .5;
+        this.addChild(this.catEffect);
     }
 
     private createTips():void
@@ -367,7 +413,7 @@ class GameScene extends egret.Sprite {
 
     private createTxt():void
     {
-        this.materTxt = new egret.TextField();
+        /*this.materTxt = new egret.TextField();
         this.materTxt.text = "Egret";
         this.materTxt.textColor = 0xff0000;
 
@@ -375,7 +421,13 @@ class GameScene extends egret.Sprite {
         this.materTxt.size = 40;
         this.materTxt.fontFamily = "Arial";
         this.materTxt.lineSpacing = 3;
-        this.addChild(this.materTxt);
+        this.addChild(this.materTxt);*/
+
+        this.materWord = new Word();
+        this.materWord.create(0, "z", 1);
+        this.materWord.createTail("zm");
+        this.materWord.x = this.stage.stageWidth - this.materWord.width;
+        this.addChild(this.materWord);
     }
 
     private createBox():void
@@ -407,6 +459,8 @@ class GameScene extends egret.Sprite {
     private onTouchHandler(event:egret.TouchEvent):void
     {
         if(this.isWin) return;
+        if(this.roleStatus == GameScene.ROTATION) return;
+        if(this.roleStatus == GameScene.FLY) return;
         if (event.localX > this.roleMc1.x)
             this.posIndex++; //向右
         else
@@ -421,17 +475,20 @@ class GameScene extends egret.Sprite {
         this.roleMc2.x = posX;
         this.roleMc3.x = posX;
         this.roleMc4.x = posX;
+        this.hitBat.x = posX;
+        this.hitCat.x = posX;
+        this.hitPeg.x = posX;
 
-        this.roleIndex++;
+        /*this.roleIndex++;
         if(this.roleIndex > 3) this.roleIndex = 1;
         this.roleMc2.visible = false;
         this.roleMc1.visible = false;
         this.roleMc3.visible = false;
 
-        this["roleMc" + this.roleIndex].visible = true;
+        this["roleMc" + this.roleIndex].visible = true;*/
     }
 
-    //�?始下落动�?
+    //�?始下落动�?
     private startFallMotion():void
     {
         egret.Tween.removeTweens(this.roleMc1);
@@ -451,7 +508,7 @@ class GameScene extends egret.Sprite {
         this.floatSpeed = 1;
     }
 
-    //初始化纹�?
+    //初始化纹�?
     private initTexture():void
     {
         for (var i:number = 1; i <= 3; ++i)
@@ -484,7 +541,7 @@ class GameScene extends egret.Sprite {
         return enemy;
     }
 
-    //创建�?
+    //创建�?
     private createCloud():void
     {
         var count:number = Math.round(Math.random() * 5) + 5;
@@ -527,7 +584,8 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    private updateCloud():void {
+    private updateCloud():void
+    {
         for (var i:number = this.cloudAry.length - 1; i >= 0; --i)
         {
             var cloud:Enemy = this.cloudAry[i];
@@ -541,39 +599,39 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //碰撞�?�?
-    private checkHitTest():boolean
+    //碰撞�?�?
+    private checkHitTest():number
     {
         var gapW:number = 10;
         for (var i:number = this.enemyAry.length - 1; i >= 0; --i) {
             var enemy:Enemy = this.enemyAry[i];
             if (this.roleSpt.hitTestPoint(enemy.x - enemy.width / 2 + gapW,
                     enemy.y - enemy.height / 2))
-                return true;
+                return enemy.type;
             if (this.roleSpt.hitTestPoint(enemy.x + enemy.width / 2 - gapW,
                     enemy.y - enemy.height / 2))
-                return true;
+                return enemy.type;
             if (this.roleSpt.hitTestPoint(enemy.x + enemy.width / 2 + gapW,
                     enemy.y + enemy.height / 2))
-                return true;
+                return enemy.type;
             if (this.roleSpt.hitTestPoint(enemy.x - enemy.width / 2 - gapW,
                     enemy.y + enemy.height / 2))
-                return true;
+                return enemy.type;
 
             if (enemy.hitTestPoint(this.roleSpt.x,
                                    this.roleSpt.y - this.roleSpt.height / 2))
-                return true;
+                return enemy.type;
             if (enemy.hitTestPoint(this.roleSpt.x,
                                    this.roleSpt.y - this.roleSpt.height / 2))
-                return true;
+                return enemy.type;
             if (enemy.hitTestPoint(this.roleSpt.x,
                                     this.roleSpt.y + this.roleSpt.height / 2))
-                return true;
+                return enemy.type;
             if (enemy.hitTestPoint(this.roleSpt.x,
                                     this.roleSpt.y + this.roleSpt.height / 2))
-                return true;
+                return enemy.type;
         }
-        return false;
+        return 0;
     }
 
     //创建云和敌人的计数器
@@ -593,7 +651,7 @@ class GameScene extends egret.Sprite {
         {
             if(this.inDoubleMode)
             {
-                //������
+                //������
                 this.posIndexAry = this.doubleModeRandom(this.posIndex + 1);
             }
             else
@@ -628,21 +686,111 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //主循�?
+    //主循�?
     private loop(event:egret.Event):void
     {
         this.curMater -= this.speed;
         if (this.curMater < 0) this.curMater = 0;
-        this.materTxt.text = Math.round(this.curMater).toString() + "M";
+        //this.materTxt.text = Math.round(this.curMater).toString() + "M";
+        this.materWord.create(this.curMater, "z", 1);
+        this.materWord.x = this.stage.stageWidth - this.materWord.width;
         this.updateTimerIndex();
         this.floatMove();
         this.updateEnemy();
         this.updateCloud();
         this.checkMater();
-        if (this.checkHitTest())
+        this.checkHitStatus();
+        this.checkStatus();
+    }
+
+    //判断碰撞状态
+    private checkHitStatus():void
+    {
+        if(this.roleStatus != GameScene.NONE) return;
+        var type:number = this.checkHitTest();
+        switch (type)
         {
-            this.fail();
+            case 1:
+                //bat
+                this.roleStatus = GameScene.ROTATION;
+                break;
+            case 2:
+                //cat
+                this.roleStatus = GameScene.CRAZY;
+                break;
+            case 3:
+                //peg
+                this.roleStatus = GameScene.FLY;
+                break;
         }
+    }
+
+    //根据状态判断现在的动作
+    private checkStatus():void
+    {
+        if(this.roleStatus == GameScene.ROTATION)
+        {
+            this.hitCat.visible = false;
+            this.catEffect.gotoAndStop(1);
+            this.catEffect.visible = false;
+            this.hitPeg.visible = false;
+            this.roleMc1.visible = false;
+
+            this.hitBat.visible = true;
+            this.hitBat.rotation += this.rotationSpeed;
+            this.rotationIndex++;
+            if(this.rotationIndex >= this.rotationTotalIndex)
+            {
+                this.rotationIndex = 0;
+                this.roleStatus = GameScene.NONE;
+            }
+        }
+        else if(this.roleStatus == GameScene.CRAZY)
+        {
+            this.hitBat.rotation = 0;
+            this.hitBat.visible = false;
+            this.hitPeg.visible = false;
+            this.roleMc1.visible = false;
+
+            this.hitCat.visible = true;
+            this.catEffect.visible = true;
+            this.catEffect.x = this.hitCat.x;
+            this.catEffect.y = this.hitCat.y;
+            this.catEffect.play(-1);
+            this.catEffectIndex++;
+            if(this.catEffectIndex >= this.catEffectTotalIndex)
+            {
+                this.catEffectIndex = 0;
+                this.roleStatus = GameScene.NONE;
+            }
+        }
+        else if(this.roleStatus == GameScene.FLY)
+        {
+            this.hitBat.rotation = 0;
+            this.hitBat.visible = false;
+            this.hitCat.visible = false;
+            this.catEffect.gotoAndStop(1);
+            this.catEffect.visible = false;
+            this.roleMc1.visible = false;
+            this.hitPeg.visible = true;
+            egret.Tween.get(this.hitPeg).to({y: -this.hitPeg.height}, 700).call(this.flyComplete, this);;
+        }
+        else if(this.roleStatus == GameScene.NONE)
+        {
+            this.hitBat.rotation = 0;
+            this.hitBat.visible = false;
+            this.hitCat.visible = false;
+            this.catEffect.gotoAndStop(1);
+            this.catEffect.visible = false;
+            this.hitPeg.visible = false;
+            this.roleMc1.visible = true;
+        }
+    }
+
+    //飞行结束
+    private flyComplete():void
+    {
+        this.fail();
     }
 
     //判断距离
@@ -658,7 +806,7 @@ class GameScene extends egret.Sprite {
         if(this.curMater <= this.totalMater / 2 + 600 &&
             this.curMater >= this.finalMater + 100)
         {
-            //һ�󲨹�����ʾ��˸
+            //һ�󲨹�����ʾ��˸
             if(!this.isEnemyTipsShow)
             {
                 this.isEnemyTipsShow = true;
@@ -669,7 +817,7 @@ class GameScene extends egret.Sprite {
         if(this.curMater <= this.totalMater / 2 &&
            this.curMater >= this.finalMater + 100)
         {
-            //һ�󲨹������
+            //һ�󲨹������
             this.inDoubleMode = true;
             this.totalDelay = 1.5;
             this.enemyTotalIndex = 60 * this.totalDelay;
@@ -692,12 +840,13 @@ class GameScene extends egret.Sprite {
         if (this.curMater <= 0)
         {
             this.floatSpeed = 0;
+            var posY:number = this.rolePosY + 330;
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
             this.removeEventListener(egret.Event.ENTER_FRAME, this.loop, this);
-            egret.Tween.get(this.roleMc1).to({y: this.rolePosY + 300}, 400).call(this.fallComplete, this);
-            egret.Tween.get(this.roleMc2).to({y: this.rolePosY + 300}, 400);
-            egret.Tween.get(this.roleMc3).to({y: this.rolePosY + 300}, 400);
-            egret.Tween.get(this.ground).to({y: this.rolePosY + 300}, 400);
+            egret.Tween.get(this.roleMc1).to({y: posY}, 400).call(this.fallComplete, this);
+            egret.Tween.get(this.roleMc2).to({y: posY}, 400);
+            egret.Tween.get(this.roleMc3).to({y: posY}, 400);
+            egret.Tween.get(this.ground).to({y: posY}, 400);
         }
     }
 
@@ -713,7 +862,7 @@ class GameScene extends egret.Sprite {
         this.roleMc4.visible = true;
         this.roleMc4.gotoAndPlay(1);
         this.roleMc4.addEventListener(egret.Event.ENTER_FRAME, this.roleMc4Loop, this);
-        //动画播放完成�? 显示 role
+        //动画播放完成�? 显示 role
     }
 
     private roleMc4Loop():void
@@ -748,7 +897,7 @@ class GameScene extends egret.Sprite {
     }
 
 
-    //删除�?有敌�?
+    //删除�?有敌�?
     private removeAllEnemy():void
     {
         for (var i:number = this.enemyAry.length - 1; i >= 0; --i)
@@ -759,7 +908,7 @@ class GameScene extends egret.Sprite {
         }
     }
 
-    //删除�?有云
+    //删除�?有云
     private removeAllCloud():void
     {
         for (var i:number = this.cloudAry.length - 1; i >= 0; --i) {
@@ -795,7 +944,7 @@ class GameScene extends egret.Sprite {
         this.roleMc3.y = this.roleMc1.y;
     }
 
-    //˫���ϰ�ģʽ�� ����ϰ�λ��
+    //˫���ϰ�ģʽ�� ����ϰ�λ��
     private doubleModeRandom(posIndex:number):any[]
     {
         var ary:any[] = [1, 2, 3];

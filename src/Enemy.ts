@@ -6,6 +6,7 @@ class Enemy extends egret.Sprite
     public speed:number = 35;
     public speedScale:number = 1;
     private ani:egret.MovieClip;
+    public type:number;
     public constructor()
     {
         super();
@@ -16,6 +17,7 @@ class Enemy extends egret.Sprite
 
     public create(type:number):void
     {
+        this.type = type;
         if(!this.ani)
         {
             var texture = RES.getRes("m" + type);

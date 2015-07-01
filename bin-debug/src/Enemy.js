@@ -13,6 +13,7 @@ var Enemy = (function (_super) {
     }
     var __egretProto__ = Enemy.prototype;
     __egretProto__.create = function (type) {
+        this.type = type;
         if (!this.ani) {
             var texture = RES.getRes("m" + type);
             var json = RES.getRes("m" + type + "Json");
