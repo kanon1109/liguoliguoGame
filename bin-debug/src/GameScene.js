@@ -30,6 +30,8 @@ var GameScene = (function (_super) {
         this.rotationDelay = 1;
         //猫爪持续时间
         this.catEffectDelay = 1;
+        //�Ƿ���ʾ����
+        this.showEnemyDelay = .8;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
     var __egretProto__ = GameScene.prototype;
@@ -59,7 +61,8 @@ var GameScene = (function (_super) {
         this.totalDelay = 2;
         this.rotationDelay = 1;
         this.totalMater = 10000;
-        this.totalMater = 1000;
+        this.showEnemyIndex = 0;
+        //this.totalMater = 1000;
         this.curMater = this.totalMater;
         this.cloudDelay = 1.5;
         this.isShowTips = false;
@@ -76,6 +79,7 @@ var GameScene = (function (_super) {
         this.cloudTotalIndex = 60 * this.cloudDelay;
         this.rotationTotalIndex = 60 * this.rotationDelay;
         this.catEffectTotalIndex = 60 * this.catEffectDelay;
+        this.showEnemyTotalIndex = 60 * this.showEnemyDelay;
         this.roleMc1.x = this.posAry[this.posIndex];
         this.roleMc1.y = -this.roleMc1.height;
         this.roleMc1.play(-1);
@@ -498,6 +502,8 @@ var GameScene = (function (_super) {
             }
             this.enemyIndex = 0;
             this.isShowTips = false;
+            if (this.roleStatus == GameScene.NONE)
+                this.roleStatus = GameScene.AFRAID;
         }
     };
     //主循��??
@@ -518,22 +524,22 @@ var GameScene = (function (_super) {
     };
     //判断碰撞状�??
     __egretProto__.checkHitStatus = function () {
-        if (this.roleStatus != GameScene.NONE)
-            return;
-        var type = this.checkHitTest();
-        switch (type) {
-            case 1:
-                //bat
-                this.roleStatus = GameScene.ROTATION;
-                break;
-            case 2:
-                //cat
-                this.roleStatus = GameScene.CRAZY;
-                break;
-            case 3:
-                //peg
-                this.roleStatus = GameScene.FLY;
-                break;
+        if (this.roleStatus == GameScene.NONE || this.roleStatus == GameScene.AFRAID) {
+            var type = this.checkHitTest();
+            switch (type) {
+                case 1:
+                    //bat
+                    this.roleStatus = GameScene.ROTATION;
+                    break;
+                case 2:
+                    //cat
+                    this.roleStatus = GameScene.CRAZY;
+                    break;
+                case 3:
+                    //peg
+                    this.roleStatus = GameScene.FLY;
+                    break;
+            }
         }
     };
     //根据状�?�判断现在的动作
@@ -544,6 +550,7 @@ var GameScene = (function (_super) {
             this.catEffect.visible = false;
             this.hitPeg.visible = false;
             this.roleMc1.visible = false;
+            this.roleMc3.visible = false;
             this.hitBat.visible = true;
             this.hitBat.rotation += this.rotationSpeed;
             this.rotationIndex++;
@@ -557,6 +564,7 @@ var GameScene = (function (_super) {
             this.hitBat.visible = false;
             this.hitPeg.visible = false;
             this.roleMc1.visible = false;
+            this.roleMc3.visible = false;
             this.hitCat.visible = true;
             this.catEffect.visible = true;
             this.catEffect.x = this.hitCat.x;
@@ -575,9 +583,19 @@ var GameScene = (function (_super) {
             this.catEffect.gotoAndStop(1);
             this.catEffect.visible = false;
             this.roleMc1.visible = false;
+            this.roleMc3.visible = false;
             this.hitPeg.visible = true;
             egret.Tween.get(this.hitPeg).to({ y: -this.hitPeg.height }, 600).call(this.flyComplete, this);
             ;
+        }
+        else if (this.roleStatus == GameScene.AFRAID) {
+            this.roleMc3.visible = true;
+            this.roleMc1.visible = false;
+            this.showEnemyIndex++;
+            if (this.showEnemyIndex >= this.showEnemyTotalIndex) {
+                this.showEnemyIndex = 0;
+                this.roleStatus = GameScene.NONE;
+            }
         }
         else if (this.roleStatus == GameScene.NONE) {
             this.hitBat.rotation = 0;
@@ -587,6 +605,7 @@ var GameScene = (function (_super) {
             this.catEffect.visible = false;
             this.hitPeg.visible = false;
             this.roleMc1.visible = true;
+            this.roleMc3.visible = false;
         }
     };
     //飞行结束
@@ -735,6 +754,8 @@ var GameScene = (function (_super) {
     GameScene.CRAZY = "crazy";
     //飞出状�??
     GameScene.FLY = "fly";
+    //�ܾ���״̬
+    GameScene.AFRAID = "afraid";
     return GameScene;
 })(egret.Sprite);
 GameScene.prototype.__class__ = "GameScene";

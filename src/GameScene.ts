@@ -103,6 +103,8 @@ class GameScene extends egret.Sprite {
     private static CRAZY:string = "crazy";
     //é£žå‡ºçŠ¶æ??
     private static FLY:string = "fly";
+    //ÊÜ¾ªÏÅ×´Ì¬
+    private static AFRAID:string = "afraid";
     //æ—‹è½¬é€Ÿåº¦
     private rotationSpeed:number = 10;
     //æ—‹è½¬æŒç»­æ—¶é—´
@@ -119,6 +121,10 @@ class GameScene extends egret.Sprite {
     private materWord:Word;
     //½±Àø½çÃæ
     private rewardPanel:RewardPanel;
+    //ÊÇ·ñÏÔÊ¾µÐÈË
+    private showEnemyDelay:number = .8;
+    private showEnemyTotalIndex:number;
+    private showEnemyIndex:number;
     public constructor()
     {
         super();
@@ -155,7 +161,8 @@ class GameScene extends egret.Sprite {
         this.totalDelay = 2;
         this.rotationDelay = 1;
         this.totalMater = 10000;
-        this.totalMater = 1000;
+        this.showEnemyIndex = 0;
+        //this.totalMater = 1000;
         this.curMater = this.totalMater;
         this.cloudDelay = 1.5;
         this.isShowTips = false;
@@ -173,6 +180,7 @@ class GameScene extends egret.Sprite {
         this.cloudTotalIndex = 60 * this.cloudDelay;
         this.rotationTotalIndex = 60 * this.rotationDelay;
         this.catEffectTotalIndex = 60 * this.catEffectDelay;
+        this.showEnemyTotalIndex = 60 * this.showEnemyDelay;
 
         this.roleMc1.x = this.posAry[this.posIndex];
         this.roleMc1.y = -this.roleMc1.height;
@@ -702,14 +710,11 @@ class GameScene extends egret.Sprite {
                 if(count > 1) enemy.y = this.stage.stageHeight + Math.round(Math.random() * 400);
             }
 
-            if(this.roleStatus == GameScene.NONE)
-            {
-                this.roleMc4.visible = true;
-                this.roleMc1.visible = false;
-            }
-
             this.enemyIndex = 0;
             this.isShowTips = false;
+
+            if(this.roleStatus == GameScene.NONE)
+               this.roleStatus = GameScene.AFRAID;
         }
     }
 
@@ -733,22 +738,25 @@ class GameScene extends egret.Sprite {
     //åˆ¤æ–­ç¢°æ’žçŠ¶æ??
     private checkHitStatus():void
     {
-        if(this.roleStatus != GameScene.NONE) return;
-        var type:number = this.checkHitTest();
-        switch (type)
+        if(this.roleStatus == GameScene.NONE ||
+           this.roleStatus == GameScene.AFRAID)
         {
-            case 1:
-                //bat
-                this.roleStatus = GameScene.ROTATION;
-                break;
-            case 2:
-                //cat
-                this.roleStatus = GameScene.CRAZY;
-                break;
-            case 3:
-                //peg
-                this.roleStatus = GameScene.FLY;
-                break;
+            var type:number = this.checkHitTest();
+            switch (type)
+            {
+                case 1:
+                    //bat
+                    this.roleStatus = GameScene.ROTATION;
+                    break;
+                case 2:
+                    //cat
+                    this.roleStatus = GameScene.CRAZY;
+                    break;
+                case 3:
+                    //peg
+                    this.roleStatus = GameScene.FLY;
+                    break;
+            }
         }
     }
 
@@ -762,7 +770,7 @@ class GameScene extends egret.Sprite {
             this.catEffect.visible = false;
             this.hitPeg.visible = false;
             this.roleMc1.visible = false;
-
+            this.roleMc3.visible = false;
             this.hitBat.visible = true;
             this.hitBat.rotation += this.rotationSpeed;
             this.rotationIndex++;
@@ -778,7 +786,7 @@ class GameScene extends egret.Sprite {
             this.hitBat.visible = false;
             this.hitPeg.visible = false;
             this.roleMc1.visible = false;
-
+            this.roleMc3.visible = false;
             this.hitCat.visible = true;
             this.catEffect.visible = true;
             this.catEffect.x = this.hitCat.x;
@@ -799,8 +807,20 @@ class GameScene extends egret.Sprite {
             this.catEffect.gotoAndStop(1);
             this.catEffect.visible = false;
             this.roleMc1.visible = false;
+            this.roleMc3.visible = false;
             this.hitPeg.visible = true;
             egret.Tween.get(this.hitPeg).to({y: -this.hitPeg.height}, 600).call(this.flyComplete, this);;
+        }
+        else if(this.roleStatus == GameScene.AFRAID)
+        {
+            this.roleMc3.visible = true;
+            this.roleMc1.visible = false;
+            this.showEnemyIndex++;
+            if(this.showEnemyIndex >= this.showEnemyTotalIndex)
+            {
+                this.showEnemyIndex = 0;
+                this.roleStatus = GameScene.NONE;
+            }
         }
         else if(this.roleStatus == GameScene.NONE)
         {
@@ -811,6 +831,7 @@ class GameScene extends egret.Sprite {
             this.catEffect.visible = false;
             this.hitPeg.visible = false;
             this.roleMc1.visible = true;
+            this.roleMc3.visible = false;
         }
     }
 

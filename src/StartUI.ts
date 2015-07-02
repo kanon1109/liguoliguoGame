@@ -20,59 +20,61 @@ class StartUI extends egret.Sprite
     
     private onAddToStage(event: egret.Event) 
     {
-        if(this.isInit) return;
-        this.isInit = true;
-        this.bg = new egret.Bitmap();
-        this.bg.texture = RES.getRes("startBg");
-        this.addChild(this.bg);
+        if(!this.isInit)
+        {
+            this.isInit = true;
+            this.bg = new egret.Bitmap();
+            this.bg.texture = RES.getRes("startBg");
+            this.addChild(this.bg);
 
-        var texture = RES.getRes("standMotion");
-        var json = RES.getRes("standMotionJson");
-        var mcdf:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(json, texture);
+            var texture = RES.getRes("standMotion");
+            var json = RES.getRes("standMotionJson");
+            var mcdf:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(json, texture);
 
-        this.roleMc = new egret.MovieClip(mcdf.generateMovieClipData());
-        this.roleMc.frameRate = 12;
-        this.roleMc.anchorX = .5;
-        this.roleMc.anchorY = .5;
-        this.addChild(this.roleMc);
-        this.roleMc.x = this.stage.stageWidth / 2;
-        this.roleMc.y = 485;
+            this.roleMc = new egret.MovieClip(mcdf.generateMovieClipData());
+            this.roleMc.frameRate = 12;
+            this.roleMc.anchorX = .5;
+            this.roleMc.anchorY = .5;
+            this.addChild(this.roleMc);
+            this.roleMc.x = this.stage.stageWidth / 2;
+            this.roleMc.y = 485;
+
+            /*this.startTips = new  egret.Bitmap();
+            this.startTips.texture = RES.getRes("startTips");
+            this.addChild(this.startTips);
+            this.startTips.anchorX = .5;
+            this.startTips.anchorY = .5;
+            this.startTips.x = 234;
+            this.startTips.y = 375;
+
+            TweenMax.to(this.startTips, .5, {y:385, repeat:-1, yoyo:true});*/
+
+            this.startBtn = new egret.Bitmap();
+            this.startBtn.touchEnabled = true;
+            this.startBtn.texture = RES.getRes("startBtn");
+            this.startBtn.anchorX = .5;
+            this.startBtn.anchorY = .5;
+            this.startBtn.x = this.stage.stageWidth / 2;
+            this.startBtn.y = this.roleMc.y + 220;
+            this.addChild(this.startBtn);
+
+            this.flyRole = new egret.Bitmap();
+            this.flyRole.texture = RES.getRes("touchFlyRole");
+            this.flyRole.anchorX = .5;
+            this.flyRole.anchorY = .5;
+            this.addChild(this.flyRole);
+
+            var texture = RES.getRes("finger");
+            var json = RES.getRes("fingerJson");
+            var mcdf:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(json, texture);
+            this.finger = new egret.MovieClip(mcdf.generateMovieClipData());
+            this.finger.frameRate = 12;
+            this.finger.anchorX = .5;
+            this.finger.anchorY = .5;
+
+            this.reset();
+        }
         this.roleMc.play(-1);
-
-        /*this.startTips = new  egret.Bitmap();
-        this.startTips.texture = RES.getRes("startTips");
-        this.addChild(this.startTips);
-        this.startTips.anchorX = .5;
-        this.startTips.anchorY = .5;
-        this.startTips.x = 234;
-        this.startTips.y = 375;
-
-        TweenMax.to(this.startTips, .5, {y:385, repeat:-1, yoyo:true});*/
-
-        this.startBtn = new egret.Bitmap();
-        this.startBtn.touchEnabled = true;
-        this.startBtn.texture = RES.getRes("startBtn");
-        this.startBtn.anchorX = .5;
-        this.startBtn.anchorY = .5;
-        this.startBtn.x = this.stage.stageWidth / 2;
-        this.startBtn.y = this.roleMc.y + 220;
-        this.addChild(this.startBtn);
-
-        this.flyRole = new egret.Bitmap();
-        this.flyRole.texture = RES.getRes("touchFlyRole");
-        this.flyRole.anchorX = .5;
-        this.flyRole.anchorY = .5;
-        this.addChild(this.flyRole);
-
-        var texture = RES.getRes("finger");
-        var json = RES.getRes("fingerJson");
-        var mcdf:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(json, texture);
-        this.finger = new egret.MovieClip(mcdf.generateMovieClipData());
-        this.finger.frameRate = 12;
-        this.finger.anchorX = .5;
-        this.finger.anchorY = .5;
-
-        this.reset();
     }
 
 
