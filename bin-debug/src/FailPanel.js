@@ -26,7 +26,7 @@ var FailPanel = (function (_super) {
         this.short = new egret.Bitmap();
         this.short.anchorX = .5;
         this.short.anchorY = .5;
-        this.short.x = this.bg.x;
+        this.short.x = this.bg.x + 15;
         this.short.y = this.bg.y - 15;
         this.short.texture = RES.getRes("short");
         this.addChild(this.short);

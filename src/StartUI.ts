@@ -10,6 +10,7 @@ class StartUI extends egret.Sprite
     private finger:egret.MovieClip;
     private roleMc:egret.MovieClip;
     private startBtn:egret.Bitmap;
+    private shadow:egret.Bitmap;
     //是否初始化过
     private isInit:boolean = false;
 	public constructor()
@@ -31,13 +32,21 @@ class StartUI extends egret.Sprite
             var json = RES.getRes("standMotionJson");
             var mcdf:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(json, texture);
 
+            this.shadow = new egret.Bitmap();
+            this.shadow.texture = RES.getRes("shadow");
+            this.shadow.anchorX = .5;
+            this.shadow.anchorY = .5;
+            this.shadow.x = this.stage.stageWidth / 2;
+            this.shadow.y = 580;
+            this.addChild(this.shadow);
+
             this.roleMc = new egret.MovieClip(mcdf.generateMovieClipData());
             this.roleMc.frameRate = 12;
             this.roleMc.anchorX = .5;
             this.roleMc.anchorY = .5;
             this.addChild(this.roleMc);
             this.roleMc.x = this.stage.stageWidth / 2;
-            this.roleMc.y = 485;
+            this.roleMc.y = 450;
 
             /*this.startTips = new  egret.Bitmap();
             this.startTips.texture = RES.getRes("startTips");
@@ -55,7 +64,7 @@ class StartUI extends egret.Sprite
             this.startBtn.anchorX = .5;
             this.startBtn.anchorY = .5;
             this.startBtn.x = this.stage.stageWidth / 2;
-            this.startBtn.y = this.roleMc.y + 220;
+            this.startBtn.y = this.roleMc.y + 230;
             this.addChild(this.startBtn);
 
             this.flyRole = new egret.Bitmap();
@@ -74,16 +83,17 @@ class StartUI extends egret.Sprite
 
             this.reset();
         }
+        this.shadow.visible = true;
         this.roleMc.play(-1);
     }
 
 
     public reset():void
     {
-        this.flyRole.x = this.stage.stageWidth / 2;
-        this.flyRole.y = this.stage.stageHeight / 2;
+        this.flyRole.x = this.roleMc.x;
+        this.flyRole.y = this.roleMc.y;
         this.finger.x = 900;
-        this.finger.y = 510;
+        this.finger.y = 450;
         this.finger.gotoAndStop(1);
         this.roleMc.visible = true;
         this.flyRole.visible = false;
@@ -119,6 +129,7 @@ class StartUI extends egret.Sprite
         if(this.finger.currentFrame == this.finger.totalFrames)
         {
             this.finger.removeEventListener(egret.Event.ENTER_FRAME, this.fingerLoop, this);
+            this.shadow.visible = false;
             this.roleMc.visible = false;
             this.flyRole.visible = true;
             egret.Tween.get(this.flyRole).to({x:-200, y:90}, 900, egret.Ease.cubicOut).call(this.flyMotionComplete, this);

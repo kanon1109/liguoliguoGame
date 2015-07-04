@@ -25,7 +25,7 @@ var GameScene = (function (_super) {
         //是否初始化过
         this.isInit = false;
         //旋转速度
-        this.rotationSpeed = 10;
+        this.rotationSpeed = 20;
         //旋转持续时间
         this.rotationDelay = 1;
         //猫爪持续时间
@@ -64,7 +64,7 @@ var GameScene = (function (_super) {
         this.showEnemyIndex = 0;
         //this.totalMater = 1000;
         this.curMater = this.totalMater;
-        this.cloudDelay = 1.5;
+        this.cloudDelay = .5;
         this.isShowTips = false;
         this.floatSpeed = 0;
         this.rolePosY = 548;
@@ -116,6 +116,7 @@ var GameScene = (function (_super) {
         this.ground.y = this.stage.stageHeight;
         //this.againBtn.visible = false;
         this.catEffect.visible = false;
+        this.rewardTips.alpha = 0;
         this.removeAllEnemy();
         this.removeAllCloud();
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
@@ -269,7 +270,7 @@ var GameScene = (function (_super) {
         this.enemyTips.anchorX = .5;
         this.enemyTips.anchorY = .5;
         this.enemyTips.x = this.stage.stageWidth / 2;
-        this.enemyTips.y = this.stage.stageHeight / 2;
+        this.enemyTips.y = this.stage.stageHeight / 2 - 220;
         this.enemyTips.alpha = 0;
         this.addChild(this.enemyTips);
     };
@@ -307,6 +308,15 @@ var GameScene = (function (_super) {
         this.box2.anchorX = .5;
         this.box2.anchorY = .5;
         this.addChild(this.box2);
+        this.rewardTips = new egret.Bitmap();
+        this.rewardTips.texture = RES.getRes("startTips");
+        this.rewardTips.anchorX = .5;
+        this.rewardTips.anchorY = 1;
+        this.addChild(this.rewardTips);
+        this.rewardTips.x = this.stage.stageWidth / 2;
+        this.rewardTips.y = this.stage.stageHeight / 2 - 210;
+        this.rewardTips.alpha = 0;
+        TweenMax.to(this.rewardTips, .3, { y: this.rewardTips.y + 15, repeat: -1, yoyo: true });
     };
     __egretProto__.playAgainHandler = function (event) {
         this.startGame();
@@ -396,13 +406,13 @@ var GameScene = (function (_super) {
     };
     //创建��??
     __egretProto__.createCloud = function () {
-        var count = Math.round(Math.random() * 5) + 5;
+        var count = Math.round(Math.random() * 5) + 1;
         for (var i = 0; i < count; ++i) {
             var cloud = new Cloud();
             var type = Math.round(Math.random() * 2) + 1;
             cloud.texture = this.cloudTextureAry[type - 1];
             cloud.x = Math.random() * this.stage.stageWidth + 1;
-            cloud.y = this.stage.stageHeight + Math.random() * 40;
+            cloud.y = this.stage.stageHeight + Math.random() * 100;
             var index = Math.round(Math.random() * 1);
             if (index < 1) {
                 this.backLayer.addChild(cloud);
@@ -474,7 +484,7 @@ var GameScene = (function (_super) {
             this.createCloud();
             this.cloudIndex = 0;
         }
-        if (!this.isShowTips && this.enemyIndex >= this.enemyTotalIndex - 80) {
+        if (!this.isShowTips && this.enemyIndex >= this.enemyTotalIndex - 30) {
             if (this.inDoubleMode) {
                 //������
                 this.posIndexAry = this.doubleModeRandom(this.posIndex + 1);
@@ -680,11 +690,13 @@ var GameScene = (function (_super) {
             this.rewardPanel.x = this.box1.x;
             this.rewardPanel.y = this.box1.y - 70;
             this.rewardPanel.visible = true;
+            this.rewardTips.alpha = 0;
             egret.Tween.get(this.box1).to({ alpha: 1, y: this.stage.stageHeight / 2 - 130 }, 1000).call(this.box1MoveComplete, this);
             egret.Tween.get(this.rewardPanel).to({ alpha: 1, y: this.stage.stageHeight / 2 - 200 }, 1000);
         }
     };
     __egretProto__.box1MoveComplete = function () {
+        egret.Tween.get(this.rewardTips).to({ alpha: 1 }, 500);
         this.box1.touchEnabled = true;
         egret.Tween.removeTweens(this.box1);
         //this.againBtn.visible = true;
@@ -694,6 +706,7 @@ var GameScene = (function (_super) {
     __egretProto__.onTouchBox1Handler = function () {
         this.box1.visible = false;
         this.box2.visible = true;
+        this.rewardTips.alpha = 0;
     };
     //删除��??有敌��??
     __egretProto__.removeAllEnemy = function () {
