@@ -1,5 +1,5 @@
 {
-	"close":false,
+	"close":true,
 	"resourcePlugin":
 	{
 		"configs":[
@@ -33,16 +33,6 @@
 			},
 			{
 				"isFolder":false,
-				"key":"c4",
-				"name":"c4"
-			},
-			{
-				"isFolder":false,
-				"key":"c5",
-				"name":"c5"
-			},
-			{
-				"isFolder":false,
 				"key":"ground",
 				"name":"ground"
 			},
@@ -60,11 +50,6 @@
 				"isFolder":false,
 				"key":"m3",
 				"name":"m3"
-			},
-			{
-				"isFolder":false,
-				"key":"m4",
-				"name":"m4"
 			},
 			{
 				"isFolder":false,
@@ -93,11 +78,6 @@
 			},
 			{
 				"isFolder":false,
-				"key":"c6",
-				"name":"c6"
-			},
-			{
-				"isFolder":false,
 				"key":"finger",
 				"name":"finger"
 			},
@@ -115,6 +95,191 @@
 				"isFolder":false,
 				"key":"touchFlyRole",
 				"name":"touchFlyRole"
+			},
+			{
+				"isFolder":false,
+				"key":"FallMotion4",
+				"name":"FallMotion4"
+			},
+			{
+				"isFolder":false,
+				"key":"againBtn",
+				"name":"againBtn"
+			},
+			{
+				"isFolder":false,
+				"key":"box1",
+				"name":"box1"
+			},
+			{
+				"isFolder":false,
+				"key":"box2",
+				"name":"box2"
+			},
+			{
+				"isFolder":false,
+				"key":"catEffect",
+				"name":"catEffect"
+			},
+			{
+				"isFolder":false,
+				"key":"closeBtn",
+				"name":"closeBtn"
+			},
+			{
+				"isFolder":false,
+				"key":"enemyTips",
+				"name":"enemyTips"
+			},
+			{
+				"isFolder":false,
+				"key":"g0",
+				"name":"g0"
+			},
+			{
+				"isFolder":false,
+				"key":"g1",
+				"name":"g1"
+			},
+			{
+				"isFolder":false,
+				"key":"g2",
+				"name":"g2"
+			},
+			{
+				"isFolder":false,
+				"key":"g3",
+				"name":"g3"
+			},
+			{
+				"isFolder":false,
+				"key":"g4",
+				"name":"g4"
+			},
+			{
+				"isFolder":false,
+				"key":"g5",
+				"name":"g5"
+			},
+			{
+				"isFolder":false,
+				"key":"g6",
+				"name":"g6"
+			},
+			{
+				"isFolder":false,
+				"key":"g7",
+				"name":"g7"
+			},
+			{
+				"isFolder":false,
+				"key":"g8",
+				"name":"g8"
+			},
+			{
+				"isFolder":false,
+				"key":"g9",
+				"name":"g9"
+			},
+			{
+				"isFolder":false,
+				"key":"hitBat",
+				"name":"hitBat"
+			},
+			{
+				"isFolder":false,
+				"key":"hitCat",
+				"name":"hitCat"
+			},
+			{
+				"isFolder":false,
+				"key":"hitPeg",
+				"name":"hitPeg"
+			},
+			{
+				"isFolder":false,
+				"key":"rewardPanel",
+				"name":"rewardPanel"
+			},
+			{
+				"isFolder":false,
+				"key":"shadow",
+				"name":"shadow"
+			},
+			{
+				"isFolder":false,
+				"key":"short",
+				"name":"short"
+			},
+			{
+				"isFolder":false,
+				"key":"standMotion",
+				"name":"standMotion"
+			},
+			{
+				"isFolder":false,
+				"key":"startBg",
+				"name":"startBg"
+			},
+			{
+				"isFolder":false,
+				"key":"startBtn",
+				"name":"startBtn"
+			},
+			{
+				"isFolder":false,
+				"key":"z0",
+				"name":"z0"
+			},
+			{
+				"isFolder":false,
+				"key":"z1",
+				"name":"z1"
+			},
+			{
+				"isFolder":false,
+				"key":"z2",
+				"name":"z2"
+			},
+			{
+				"isFolder":false,
+				"key":"z3",
+				"name":"z3"
+			},
+			{
+				"isFolder":false,
+				"key":"z4",
+				"name":"z4"
+			},
+			{
+				"isFolder":false,
+				"key":"z5",
+				"name":"z5"
+			},
+			{
+				"isFolder":false,
+				"key":"z6",
+				"name":"z6"
+			},
+			{
+				"isFolder":false,
+				"key":"z7",
+				"name":"z7"
+			},
+			{
+				"isFolder":false,
+				"key":"z8",
+				"name":"z8"
+			},
+			{
+				"isFolder":false,
+				"key":"z9",
+				"name":"z9"
+			},
+			{
+				"isFolder":false,
+				"key":"zm",
+				"name":"zm"
 			}]
 		}
 	},

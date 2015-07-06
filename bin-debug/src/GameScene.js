@@ -116,7 +116,6 @@ var GameScene = (function (_super) {
         this.ground.y = this.stage.stageHeight;
         //this.againBtn.visible = false;
         this.catEffect.visible = false;
-        this.rewardTips.alpha = 0;
         this.removeAllEnemy();
         this.removeAllCloud();
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
@@ -308,15 +307,6 @@ var GameScene = (function (_super) {
         this.box2.anchorX = .5;
         this.box2.anchorY = .5;
         this.addChild(this.box2);
-        this.rewardTips = new egret.Bitmap();
-        this.rewardTips.texture = RES.getRes("startTips");
-        this.rewardTips.anchorX = .5;
-        this.rewardTips.anchorY = 1;
-        this.addChild(this.rewardTips);
-        this.rewardTips.x = this.stage.stageWidth / 2;
-        this.rewardTips.y = this.stage.stageHeight / 2 - 210;
-        this.rewardTips.alpha = 0;
-        TweenMax.to(this.rewardTips, .3, { y: this.rewardTips.y + 15, repeat: -1, yoyo: true });
     };
     __egretProto__.playAgainHandler = function (event) {
         this.startGame();
@@ -690,13 +680,12 @@ var GameScene = (function (_super) {
             this.rewardPanel.x = this.box1.x;
             this.rewardPanel.y = this.box1.y - 70;
             this.rewardPanel.visible = true;
-            this.rewardTips.alpha = 0;
             egret.Tween.get(this.box1).to({ alpha: 1, y: this.stage.stageHeight / 2 - 130 }, 1000).call(this.box1MoveComplete, this);
             egret.Tween.get(this.rewardPanel).to({ alpha: 1, y: this.stage.stageHeight / 2 - 200 }, 1000);
         }
     };
     __egretProto__.box1MoveComplete = function () {
-        egret.Tween.get(this.rewardTips).to({ alpha: 1 }, 500);
+        TweenMax.to(this.box1, .3, { y: this.box1.y - 15, repeat: -1, yoyo: true });
         this.box1.touchEnabled = true;
         egret.Tween.removeTweens(this.box1);
         //this.againBtn.visible = true;
@@ -704,9 +693,9 @@ var GameScene = (function (_super) {
         this.box2.y = this.box1.y;
     };
     __egretProto__.onTouchBox1Handler = function () {
+        TweenMax.killTweensOf(this.box1);
         this.box1.visible = false;
         this.box2.visible = true;
-        this.rewardTips.alpha = 0;
     };
     //删除��??有敌��??
     __egretProto__.removeAllEnemy = function () {
