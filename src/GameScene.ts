@@ -499,14 +499,26 @@ class GameScene extends egret.Sprite {
         else if (this.posIndex < 0)
             this.posIndex = 0;
         var posX:number = this.posAry[this.posIndex];
-        this.roleMc1.x = posX;
+        /*this.roleMc1.x = posX;
         this.roleSpt.x = posX;
         this.roleMc2.x = posX;
         this.roleMc3.x = posX;
         this.roleMc4.x = posX;
         this.hitBat.x = posX;
         this.hitCat.x = posX;
-        this.hitPeg.x = posX;
+        this.hitPeg.x = posX;*/
+
+        var delay:number = .2;
+
+        TweenMax.to(this.roleMc1, delay, {x:posX});
+        TweenMax.to(this.roleSpt, delay, {x:posX});
+        TweenMax.to(this.roleMc2, delay, {x:posX});
+        TweenMax.to(this.roleMc3, delay, {x:posX});
+        TweenMax.to(this.roleMc4, delay, {x:posX});
+        TweenMax.to(this.hitBat, delay, {x:posX});
+        TweenMax.to(this.hitCat, delay, {x:posX});
+        TweenMax.to(this.hitPeg, delay, {x:posX});
+
 
         /*this.roleIndex++;
         if(this.roleIndex > 3) this.roleIndex = 1;

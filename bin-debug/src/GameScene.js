@@ -30,7 +30,7 @@ var GameScene = (function (_super) {
         this.rotationDelay = 1;
         //猫爪持续时间
         this.catEffectDelay = 1;
-        //�Ƿ���ʾ����
+        //显示敌人的间隔
         this.showEnemyDelay = .8;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
@@ -50,7 +50,7 @@ var GameScene = (function (_super) {
         }
         this.startGame();
     };
-    //��??始游��??
+    //开始游戏
     __egretProto__.startGame = function () {
         this.posIndex = 1;
         this.roleIndex = 1;
@@ -123,7 +123,7 @@ var GameScene = (function (_super) {
         this.startFallMotion();
         this.addEventListener(egret.Event.ENTER_FRAME, this.loop, this);
     };
-    //初始化数��??
+    //初始化数据
     __egretProto__.initData = function () {
         this.posIndex = 1;
         this.posAry = [130, 320, 530];
@@ -338,14 +338,23 @@ var GameScene = (function (_super) {
         else if (this.posIndex < 0)
             this.posIndex = 0;
         var posX = this.posAry[this.posIndex];
-        this.roleMc1.x = posX;
+        /*this.roleMc1.x = posX;
         this.roleSpt.x = posX;
         this.roleMc2.x = posX;
         this.roleMc3.x = posX;
         this.roleMc4.x = posX;
         this.hitBat.x = posX;
         this.hitCat.x = posX;
-        this.hitPeg.x = posX;
+        this.hitPeg.x = posX;*/
+        var delay = .2;
+        TweenMax.to(this.roleMc1, delay, { x: posX });
+        TweenMax.to(this.roleSpt, delay, { x: posX });
+        TweenMax.to(this.roleMc2, delay, { x: posX });
+        TweenMax.to(this.roleMc3, delay, { x: posX });
+        TweenMax.to(this.roleMc4, delay, { x: posX });
+        TweenMax.to(this.hitBat, delay, { x: posX });
+        TweenMax.to(this.hitCat, delay, { x: posX });
+        TweenMax.to(this.hitPeg, delay, { x: posX });
         /*this.roleIndex++;
         if(this.roleIndex > 3) this.roleIndex = 1;
         this.roleMc2.visible = false;
@@ -354,7 +363,7 @@ var GameScene = (function (_super) {
 
         this["roleMc" + this.roleIndex].visible = true;*/
     };
-    //��??始下落动��??
+    //开始下落
     __egretProto__.startFallMotion = function () {
         egret.Tween.removeTweens(this.roleMc1);
         egret.Tween.removeTweens(this.roleMc2);
@@ -370,7 +379,7 @@ var GameScene = (function (_super) {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
         this.floatSpeed = 1;
     };
-    //初始化纹��??
+    //初始化纹理
     __egretProto__.initTexture = function () {
         for (var i = 1; i <= 3; ++i) {
             var texture = RES.getRes("m" + i);
@@ -394,7 +403,7 @@ var GameScene = (function (_super) {
         this.enemyAry.push(enemy);
         return enemy;
     };
-    //创建��??
+    //创建云
     __egretProto__.createCloud = function () {
         var count = Math.round(Math.random() * 5) + 1;
         for (var i = 0; i < count; ++i) {
@@ -440,7 +449,7 @@ var GameScene = (function (_super) {
             }
         }
     };
-    //碰撞��??��??
+    //碰撞检测
     __egretProto__.checkHitTest = function () {
         var gapW = 10;
         for (var i = this.enemyAry.length - 1; i >= 0; --i) {
@@ -476,7 +485,7 @@ var GameScene = (function (_super) {
         }
         if (!this.isShowTips && this.enemyIndex >= this.enemyTotalIndex - 30) {
             if (this.inDoubleMode) {
-                //������
+                //双重障碍模式
                 this.posIndexAry = this.doubleModeRandom(this.posIndex + 1);
             }
             else {
@@ -506,7 +515,7 @@ var GameScene = (function (_super) {
                 this.roleStatus = GameScene.AFRAID;
         }
     };
-    //主循��??
+    //主循环
     __egretProto__.loop = function (event) {
         this.curMater -= this.speed;
         if (this.curMater < 0)
@@ -522,7 +531,7 @@ var GameScene = (function (_super) {
         this.checkHitStatus();
         this.checkStatus();
     };
-    //判断碰撞状�??
+    //判断碰撞状态
     __egretProto__.checkHitStatus = function () {
         if (this.roleStatus == GameScene.NONE || this.roleStatus == GameScene.AFRAID) {
             var type = this.checkHitTest();
@@ -542,7 +551,7 @@ var GameScene = (function (_super) {
             }
         }
     };
-    //根据状�?�判断现在的动作
+    //根据状态执行动作
     __egretProto__.checkStatus = function () {
         if (this.roleStatus == GameScene.ROTATION) {
             this.hitCat.visible = false;
@@ -621,14 +630,12 @@ var GameScene = (function (_super) {
             this.enemyTotalIndex = 60 * this.totalDelay;
         }*/
         if (this.curMater <= this.totalMater / 2 + 600 && this.curMater >= this.finalMater + 100) {
-            //һ�󲨹�����ʾ��˸
             if (!this.isEnemyTipsShow) {
                 this.isEnemyTipsShow = true;
                 TweenMax.to(this.enemyTips, .5, { alpha: 1, repeat: 5, yoyo: true });
             }
         }
         if (this.curMater <= this.totalMater / 2 && this.curMater >= this.finalMater + 100) {
-            //һ�󲨹�������?
             this.inDoubleMode = true;
             this.totalDelay = 1.5;
             this.enemyTotalIndex = 60 * this.totalDelay;
@@ -664,7 +671,7 @@ var GameScene = (function (_super) {
         this.roleMc4.visible = true;
         this.roleMc4.gotoAndPlay(1);
         this.roleMc4.addEventListener(egret.Event.ENTER_FRAME, this.roleMc4Loop, this);
-        //动画播放完成��?? 显示 role
+        //动画播放完成 显示 role
     };
     __egretProto__.roleMc4Loop = function () {
         if (this.roleMc4.currentFrame == this.roleMc4.totalFrames) {
@@ -697,7 +704,7 @@ var GameScene = (function (_super) {
         this.box1.visible = false;
         this.box2.visible = true;
     };
-    //删除��??有敌��??
+    //删除所有敌人
     __egretProto__.removeAllEnemy = function () {
         for (var i = this.enemyAry.length - 1; i >= 0; --i) {
             var enemy = this.enemyAry[i];
@@ -705,7 +712,7 @@ var GameScene = (function (_super) {
             this.enemyAry.splice(i, 1);
         }
     };
-    //删除��??有云
+    //删除所有云
     __egretProto__.removeAllCloud = function () {
         for (var i = this.cloudAry.length - 1; i >= 0; --i) {
             var cloud = this.cloudAry[i];
@@ -734,7 +741,7 @@ var GameScene = (function (_super) {
         this.roleMc2.y = this.roleMc1.y;
         this.roleMc3.y = this.roleMc1.y;
     };
-    //˫���ϰ�ģʽ�� ����ϰ�λ���?
+    //随机双重障碍
     __egretProto__.doubleModeRandom = function (posIndex) {
         var ary = [1, 2, 3];
         var count = ary.length;
@@ -748,15 +755,15 @@ var GameScene = (function (_super) {
         tmpAry.splice(index, 1);
         return [posIndex, tmpAry[0]];
     };
-    //普�?�状��?
+    //普通状态
     GameScene.NONE = "none";
-    //旋转状�??
+    //旋转状态
     GameScene.ROTATION = "rotation";
-    //被猫爪状��?
+    //被猫爪状态
     GameScene.CRAZY = "crazy";
-    //飞出状�??
+    //飞出状态
     GameScene.FLY = "fly";
-    //�ܾ���״̬
+    //恐惧状态
     GameScene.AFRAID = "afraid";
     return GameScene;
 })(egret.Sprite);

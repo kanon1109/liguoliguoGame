@@ -1,29 +1,31 @@
-/**
- * Copyright (c) 2014,Egret-Labs.org
- * All rights reserved.
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Egret-Labs.org nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY EGRET-LABS.ORG AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL EGRET-LABS.ORG AND CONTRIBUTORS BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+//////////////////////////////////////////////////////////////////////////////////////
+//
+//  Copyright (c) 2014-2015, Egret Technology Inc.
+//  All rights reserved.
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of the Egret nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+//  THIS SOFTWARE IS PROVIDED BY EGRET AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
+//  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+//  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+//  IN NO EVENT SHALL EGRET AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+//  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+//  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;LOSS OF USE, DATA,
+//  OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+//  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//////////////////////////////////////////////////////////////////////////////////////
 var egret;
 (function (egret) {
     /**
@@ -47,11 +49,11 @@ var egret;
             this._linesArr = [];
             this._isTyping = false;
             this.needDraw = true;
-            this._properties = new egret.TextFieldProperties();
+            this._TF_Props_ = new egret.TextFieldProperties();
         }
         var __egretProto__ = TextField.prototype;
         __egretProto__.isInput = function () {
-            return this._properties._type == egret.TextFieldType.INPUT;
+            return this._TF_Props_._type == egret.TextFieldType.INPUT;
         };
         __egretProto__._setTouchEnabled = function (value) {
             _super.prototype._setTouchEnabled.call(this, value);
@@ -61,7 +63,7 @@ var egret;
         };
         Object.defineProperty(__egretProto__, "type", {
             get: function () {
-                return this._properties._type;
+                return this._TF_Props_._type;
             },
             /**
              * 文本字段的类型。
@@ -77,14 +79,14 @@ var egret;
         });
         __egretProto__._setType = function (value) {
             var self = this;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             if (properties._type != value) {
                 properties._type = value;
                 if (properties._type == egret.TextFieldType.INPUT) {
-                    if (!this._hasWidthSet) {
+                    if (!this._DO_Props_._hasWidthSet) {
                         this._setWidth(100);
                     }
-                    if (!this._hasHeightSet) {
+                    if (!this._DO_Props_._hasHeightSet) {
                         this._setHeight(30);
                     }
                     //创建stageText
@@ -93,7 +95,7 @@ var egret;
                     }
                     this._inputUtils.init(this);
                     this._setDirty();
-                    if (this._stage) {
+                    if (this._DO_Props_._stage) {
                         this._inputUtils._addStageText();
                     }
                 }
@@ -120,10 +122,10 @@ var egret;
             configurable: true
         });
         __egretProto__._getText = function () {
-            if (this._properties._type == egret.TextFieldType.INPUT) {
+            if (this._TF_Props_._type == egret.TextFieldType.INPUT) {
                 return this._inputUtils._getText();
             }
-            return this._properties._text;
+            return this._TF_Props_._text;
         };
         __egretProto__._setSizeDirty = function () {
             _super.prototype._setSizeDirty.call(this);
@@ -137,7 +139,7 @@ var egret;
                 value = "";
             }
             var self = this;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             this._isFlow = false;
             if (properties._text != value) {
                 this._setTextDirty();
@@ -158,12 +160,12 @@ var egret;
             }
             this._setBaseText(value);
             if (this._inputUtils) {
-                this._inputUtils._setText(this._properties._text);
+                this._inputUtils._setText(this._TF_Props_._text);
             }
         };
         Object.defineProperty(__egretProto__, "displayAsPassword", {
             get: function () {
-                return this._properties._displayAsPassword;
+                return this._TF_Props_._displayAsPassword;
             },
             /**
              * 指定文本字段是否是密码文本字段。
@@ -179,7 +181,7 @@ var egret;
         });
         __egretProto__._setDisplayAsPassword = function (value) {
             var self = this;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             if (properties._displayAsPassword != value) {
                 properties._displayAsPassword = value;
                 this._setTextDirty();
@@ -195,7 +197,7 @@ var egret;
         };
         Object.defineProperty(__egretProto__, "fontFamily", {
             get: function () {
-                return this._properties._fontFamily;
+                return this._TF_Props_._fontFamily;
             },
             /**
              * 使用此文本格式的文本的字体名称，以字符串形式表示。
@@ -209,14 +211,14 @@ var egret;
             configurable: true
         });
         __egretProto__._setFontFamily = function (value) {
-            if (this._properties._fontFamily != value) {
+            if (this._TF_Props_._fontFamily != value) {
                 this._setTextDirty();
-                this._properties._fontFamily = value;
+                this._TF_Props_._fontFamily = value;
             }
         };
         Object.defineProperty(__egretProto__, "size", {
             get: function () {
-                return this._properties._size;
+                return this._TF_Props_._size;
             },
             /**
              * 使用此文本格式的文本的大小（以像素为单位）。
@@ -230,14 +232,14 @@ var egret;
             configurable: true
         });
         __egretProto__._setSize = function (value) {
-            if (this._properties._size != value) {
+            if (this._TF_Props_._size != value) {
                 this._setTextDirty();
-                this._properties._size = value;
+                this._TF_Props_._size = value;
             }
         };
         Object.defineProperty(__egretProto__, "italic", {
             get: function () {
-                return this._properties._italic;
+                return this._TF_Props_._italic;
             },
             /**
              * 表示使用此文本格式的文本是否为斜体。
@@ -252,14 +254,14 @@ var egret;
             configurable: true
         });
         __egretProto__._setItalic = function (value) {
-            if (this._properties._italic != value) {
+            if (this._TF_Props_._italic != value) {
                 this._setTextDirty();
-                this._properties._italic = value;
+                this._TF_Props_._italic = value;
             }
         };
         Object.defineProperty(__egretProto__, "bold", {
             get: function () {
-                return this._properties._bold;
+                return this._TF_Props_._bold;
             },
             /**
              * 指定文本是否为粗体字。
@@ -274,14 +276,14 @@ var egret;
             configurable: true
         });
         __egretProto__._setBold = function (value) {
-            if (this._properties._bold != value) {
+            if (this._TF_Props_._bold != value) {
                 this._setTextDirty();
-                this._properties._bold = value;
+                this._TF_Props_._bold = value;
             }
         };
         Object.defineProperty(__egretProto__, "textColor", {
             get: function () {
-                return this._properties._textColor;
+                return this._TF_Props_._textColor;
             },
             /**
              * 表示文本的颜色。
@@ -296,15 +298,15 @@ var egret;
             configurable: true
         });
         __egretProto__._setTextColor = function (value) {
-            if (this._properties._textColor != value) {
+            if (this._TF_Props_._textColor != value) {
                 this._setTextDirty();
-                this._properties._textColor = value;
-                this._properties._textColorString = egret.toColorString(value);
+                this._TF_Props_._textColor = value;
+                this._TF_Props_._textColorString = egret.toColorString(value);
             }
         };
         Object.defineProperty(__egretProto__, "strokeColor", {
             get: function () {
-                return this._properties._strokeColor;
+                return this._TF_Props_._strokeColor;
             },
             /**
              * 表示文本的描边颜色。
@@ -319,15 +321,15 @@ var egret;
             configurable: true
         });
         __egretProto__._setStrokeColor = function (value) {
-            if (this._properties._strokeColor != value) {
+            if (this._TF_Props_._strokeColor != value) {
                 this._setTextDirty();
-                this._properties._strokeColor = value;
-                this._properties._strokeColorString = egret.toColorString(value);
+                this._TF_Props_._strokeColor = value;
+                this._TF_Props_._strokeColorString = egret.toColorString(value);
             }
         };
         Object.defineProperty(__egretProto__, "stroke", {
             get: function () {
-                return this._properties._stroke;
+                return this._TF_Props_._stroke;
             },
             /**
              * 表示描边宽度。
@@ -342,14 +344,14 @@ var egret;
             configurable: true
         });
         __egretProto__._setStroke = function (value) {
-            if (this._properties._stroke != value) {
+            if (this._TF_Props_._stroke != value) {
                 this._setTextDirty();
-                this._properties._stroke = value;
+                this._TF_Props_._stroke = value;
             }
         };
         Object.defineProperty(__egretProto__, "textAlign", {
             get: function () {
-                return this._properties._textAlign;
+                return this._TF_Props_._textAlign;
             },
             /**
              * 文本水平对齐方式
@@ -364,14 +366,14 @@ var egret;
             configurable: true
         });
         __egretProto__._setTextAlign = function (value) {
-            if (this._properties._textAlign != value) {
+            if (this._TF_Props_._textAlign != value) {
                 this._setTextDirty();
-                this._properties._textAlign = value;
+                this._TF_Props_._textAlign = value;
             }
         };
         Object.defineProperty(__egretProto__, "verticalAlign", {
             get: function () {
-                return this._properties._verticalAlign;
+                return this._TF_Props_._verticalAlign;
             },
             /**
              * 文本垂直对齐方式。
@@ -386,14 +388,14 @@ var egret;
             configurable: true
         });
         __egretProto__._setVerticalAlign = function (value) {
-            if (this._properties._verticalAlign != value) {
+            if (this._TF_Props_._verticalAlign != value) {
                 this._setTextDirty();
-                this._properties._verticalAlign = value;
+                this._TF_Props_._verticalAlign = value;
             }
         };
         Object.defineProperty(__egretProto__, "maxChars", {
             get: function () {
-                return this._properties._maxChars;
+                return this._TF_Props_._maxChars;
             },
             /**
              * 文本字段中最多可包含的字符数（即用户输入的字符数）。
@@ -407,13 +409,13 @@ var egret;
             configurable: true
         });
         __egretProto__._setMaxChars = function (value) {
-            if (this._properties._maxChars != value) {
-                this._properties._maxChars = value;
+            if (this._TF_Props_._maxChars != value) {
+                this._TF_Props_._maxChars = value;
             }
         };
         Object.defineProperty(__egretProto__, "scrollV", {
             get: function () {
-                return Math.min(Math.max(this._properties._scrollV, 1), this.maxScrollV);
+                return Math.min(Math.max(this._TF_Props_._scrollV, 1), this.maxScrollV);
             },
             /**
              * 文本在文本字段中的垂直位置。scrollV 属性可帮助用户定位到长篇文章的特定段落，还可用于创建滚动文本字段。
@@ -422,7 +424,7 @@ var egret;
              * @param value
              */
             set: function (value) {
-                this._properties._scrollV = Math.max(value, 1);
+                this._TF_Props_._scrollV = Math.max(value, 1);
                 this._setDirty();
             },
             enumerable: true,
@@ -435,7 +437,7 @@ var egret;
              */
             get: function () {
                 this._getLinesArr();
-                return Math.max(this._properties._numLines - egret.TextFieldUtils._getScrollNum(this) + 1, 1);
+                return Math.max(this._TF_Props_._numLines - egret.TextFieldUtils._getScrollNum(this) + 1, 1);
             },
             enumerable: true,
             configurable: true
@@ -465,7 +467,7 @@ var egret;
         };
         Object.defineProperty(__egretProto__, "lineSpacing", {
             get: function () {
-                return this._properties._lineSpacing;
+                return this._TF_Props_._lineSpacing;
             },
             /**
              * 行间距
@@ -480,13 +482,13 @@ var egret;
             configurable: true
         });
         __egretProto__._setLineSpacing = function (value) {
-            if (this._properties._lineSpacing != value) {
+            if (this._TF_Props_._lineSpacing != value) {
                 this._setTextDirty();
-                this._properties._lineSpacing = value;
+                this._TF_Props_._lineSpacing = value;
             }
         };
         __egretProto__._getLineHeight = function () {
-            return this._properties._lineSpacing + this._properties._size;
+            return this._TF_Props_._lineSpacing + this._TF_Props_._size;
         };
         Object.defineProperty(__egretProto__, "numLines", {
             /**
@@ -494,14 +496,14 @@ var egret;
              * @member {number} egret.TextField#numLines
              */
             get: function () {
-                return this._properties._numLines;
+                return this._TF_Props_._numLines;
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(__egretProto__, "multiline", {
             get: function () {
-                return this._properties._multiline;
+                return this._TF_Props_._multiline;
             },
             /**
              * 表示字段是否为多行文本字段。注意，此属性仅在type为TextFieldType.INPUT时才有效。
@@ -516,7 +518,7 @@ var egret;
             configurable: true
         });
         __egretProto__._setMultiline = function (value) {
-            this._properties._multiline = value;
+            this._TF_Props_._multiline = value;
             this._setDirty();
         };
         __egretProto__._setWidth = function (value) {
@@ -529,7 +531,7 @@ var egret;
         };
         Object.defineProperty(__egretProto__, "border", {
             get: function () {
-                return this._properties._border;
+                return this._TF_Props_._border;
             },
             /**
              * 指定文本字段是否具有边框。
@@ -539,7 +541,7 @@ var egret;
              * @member {boolean} egret.TextField#border
              */
             set: function (value) {
-                this._properties._border = value;
+                this._TF_Props_._border = value;
                 this.fillBackground();
             },
             enumerable: true,
@@ -547,7 +549,7 @@ var egret;
         });
         Object.defineProperty(__egretProto__, "borderColor", {
             get: function () {
-                return this._properties._borderColor;
+                return this._TF_Props_._borderColor;
             },
             /**
              * 文本字段边框的颜色。默认值为 0x000000（黑色）。
@@ -555,7 +557,7 @@ var egret;
              * @member {number} egret.TextField#borderColor
              */
             set: function (value) {
-                this._properties._borderColor = value;
+                this._TF_Props_._borderColor = value;
                 this.fillBackground();
             },
             enumerable: true,
@@ -563,7 +565,7 @@ var egret;
         });
         Object.defineProperty(__egretProto__, "background", {
             get: function () {
-                return this._properties._background;
+                return this._TF_Props_._background;
             },
             /**
              * 指定文本字段是否具有背景填充。
@@ -573,7 +575,7 @@ var egret;
              * @member {boolean} egret.TextField#background
              */
             set: function (value) {
-                this._properties._background = value;
+                this._TF_Props_._background = value;
                 this.fillBackground();
             },
             enumerable: true,
@@ -581,7 +583,7 @@ var egret;
         });
         Object.defineProperty(__egretProto__, "backgroundColor", {
             get: function () {
-                return this._properties._backgroundColor;
+                return this._TF_Props_._backgroundColor;
             },
             /**
              * 文本字段背景的颜色。默认值为 0xFFFFFF（白色）。
@@ -589,7 +591,7 @@ var egret;
              * @member {number} egret.TextField#backgroundColor
              */
             set: function (value) {
-                this._properties._backgroundColor = value;
+                this._TF_Props_._backgroundColor = value;
                 this.fillBackground();
             },
             enumerable: true,
@@ -598,7 +600,7 @@ var egret;
         __egretProto__.fillBackground = function () {
             var self = this;
             var graphics = self._bgGraphics;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             if (graphics) {
                 graphics.clear();
             }
@@ -623,28 +625,28 @@ var egret;
         __egretProto__._onRemoveFromStage = function () {
             _super.prototype._onRemoveFromStage.call(this);
             this._removeEvent();
-            if (this._properties._type == egret.TextFieldType.INPUT) {
+            if (this._TF_Props_._type == egret.TextFieldType.INPUT) {
                 this._inputUtils._removeStageText();
             }
         };
         __egretProto__._onAddToStage = function () {
             _super.prototype._onAddToStage.call(this);
             this._addEvent();
-            if (this._properties._type == egret.TextFieldType.INPUT) {
+            if (this._TF_Props_._type == egret.TextFieldType.INPUT) {
                 this._inputUtils._addStageText();
             }
         };
         __egretProto__._updateBaseTransform = function () {
             this._getLinesArr();
-            if (this._properties._textMaxWidth == 0 && this._properties._type != egret.TextFieldType.INPUT) {
+            if (this._TF_Props_._textMaxWidth == 0 && this._TF_Props_._type != egret.TextFieldType.INPUT) {
                 return;
             }
             _super.prototype._updateTransform.call(this);
             var matrix = this._worldTransform;
         };
         __egretProto__._updateTransform = function () {
-            if (this._properties._type == egret.TextFieldType.INPUT) {
-                if (this._normalDirty) {
+            if (this._TF_Props_._type == egret.TextFieldType.INPUT) {
+                if (this._DO_Props_._normalDirty) {
                     //this._clearDirty();
                     this._inputUtils._updateProperties();
                 }
@@ -658,7 +660,7 @@ var egret;
         };
         __egretProto__._draw = function (renderContext) {
             var self = this;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             if (properties._type == egret.TextFieldType.INPUT) {
                 if (self._isTyping) {
                     return;
@@ -684,7 +686,7 @@ var egret;
          */
         __egretProto__._measureBounds = function () {
             var self = this;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             this._getLinesArr();
             if (properties._textMaxWidth == 0) {
                 return egret.Rectangle.identity.initialize(0, 0, 0, 0);
@@ -701,7 +703,7 @@ var egret;
              */
             set: function (textArr) {
                 var self = this;
-                var properties = self._properties;
+                var properties = self._TF_Props_;
                 this._isFlow = true;
                 var text = "";
                 if (textArr == null)
@@ -722,7 +724,7 @@ var egret;
             configurable: true
         });
         __egretProto__.changeToPassText = function (text) {
-            if (this._properties._displayAsPassword) {
+            if (this._TF_Props_._displayAsPassword) {
                 var passText = "";
                 for (var i = 0, num = text.length; i < num; i++) {
                     switch (text.charAt(i)) {
@@ -746,7 +748,7 @@ var egret;
         };
         Object.defineProperty(__egretProto__, "textWidth", {
             get: function () {
-                return this._properties._textMaxWidth;
+                return this._TF_Props_._textMaxWidth;
             },
             enumerable: true,
             configurable: true
@@ -762,12 +764,21 @@ var egret;
             this.appendElement({ text: text });
         };
         __egretProto__.appendElement = function (element) {
-            this._textArr.push(element);
-            this.setMiddleStyle(this._textArr);
+            var self = this;
+            var properties = self._TF_Props_;
+            var text = properties._text + element.text;
+            if (properties._displayAsPassword) {
+                self._setBaseText(text);
+            }
+            else {
+                properties._text = text;
+                self._textArr.push(element);
+                self.setMiddleStyle(self._textArr);
+            }
         };
         __egretProto__._getLinesArr = function () {
             var self = this;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             if (!self._isArrayChanged) {
                 return self._linesArr;
             }
@@ -778,7 +789,7 @@ var egret;
             properties._textMaxHeight = 0;
             properties._textMaxWidth = 0;
             //宽度被设置为0
-            if (self._hasWidthSet && self._explicitWidth == 0) {
+            if (self._DO_Props_._hasWidthSet && self._DO_Props_._explicitWidth == 0) {
                 properties._numLines = 0;
                 return [{ width: 0, height: 0, charNum: 0, elements: [], hasNextLine: false }];
             }
@@ -821,7 +832,7 @@ var egret;
                             renderContext.setupFont(self, element.style);
                         }
                         var w = renderContext.measureText(textArr[j]);
-                        if (!self._hasWidthSet) {
+                        if (!self._DO_Props_._hasWidthSet) {
                             lineW += w;
                             lineCharNum += textArr[j].length;
                             lineElement.elements.push({ width: w, text: textArr[j], style: element.style });
@@ -830,7 +841,7 @@ var egret;
                             }
                         }
                         else {
-                            if (lineW + w <= self._explicitWidth) {
+                            if (lineW + w <= self._DO_Props_._explicitWidth) {
                                 lineElement.elements.push({ width: w, text: textArr[j], style: element.style });
                                 lineW += w;
                                 lineCharNum += textArr[j].length;
@@ -845,7 +856,7 @@ var egret;
                                 var wl = word.length;
                                 for (; k < wl; k++) {
                                     w = renderContext.measureText(word.charAt(k));
-                                    if (lineW + w > self._explicitWidth && lineW + k != 0) {
+                                    if (lineW + w > self._DO_Props_._explicitWidth && lineW + k != 0) {
                                         break;
                                     }
                                     ww += w;
@@ -896,19 +907,19 @@ var egret;
          */
         __egretProto__.drawText = function (renderContext) {
             var self = this;
-            var properties = self._properties;
+            var properties = self._TF_Props_;
             //先算出需要的数值
             var lines = self._getLinesArr();
             if (properties._textMaxWidth == 0) {
                 return;
             }
-            var maxWidth = self._hasWidthSet ? self._explicitWidth : properties._textMaxWidth;
+            var maxWidth = self._DO_Props_._hasWidthSet ? self._DO_Props_._explicitWidth : properties._textMaxWidth;
             var textHeight = egret.TextFieldUtils._getTextHeight(self);
             var drawY = 0;
             var startLine = egret.TextFieldUtils._getStartLine(self);
-            if (self._hasHeightSet && self._explicitHeight > textHeight) {
+            if (self._DO_Props_._hasHeightSet && self._DO_Props_._explicitHeight > textHeight) {
                 var valign = egret.TextFieldUtils._getValign(self);
-                drawY += valign * (self._explicitHeight - textHeight);
+                drawY += valign * (self._DO_Props_._explicitHeight - textHeight);
             }
             drawY = Math.round(drawY);
             var halign = egret.TextFieldUtils._getHalign(self);
@@ -921,7 +932,7 @@ var egret;
                     if (properties._type == egret.TextFieldType.INPUT && !properties._multiline) {
                         break;
                     }
-                    if (self._hasHeightSet && drawY > self._explicitHeight) {
+                    if (self._DO_Props_._hasHeightSet && drawY > self._DO_Props_._explicitHeight) {
                         break;
                     }
                 }
@@ -945,7 +956,7 @@ var egret;
         };
         //处理富文本中有href的
         __egretProto__.onTapHandler = function (e) {
-            if (this._properties._type == egret.TextFieldType.INPUT) {
+            if (this._TF_Props_._type == egret.TextFieldType.INPUT) {
                 return;
             }
             var ele = egret.TextFieldUtils._getTextElement(this, e.localX, e.localY);
